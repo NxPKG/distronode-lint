@@ -1,4 +1,5 @@
 """Test playbooks with local content."""
+
 from distronodelint.rules import RulesCollection
 from distronodelint.runner import Runner
 

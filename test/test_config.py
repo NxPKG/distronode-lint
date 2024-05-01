@@ -1,4 +1,5 @@
 """Tests for config module."""
+
 from distronodelint.config import PROFILES
 from distronodelint.rules import RulesCollection
 

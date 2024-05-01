@@ -1,11 +1,12 @@
 """Constants used by DistronodeLint."""
+
 from enum import Enum
 from pathlib import Path
 from typing import Literal
 
 DEFAULT_RULESDIR = Path(__file__).parent / "rules"
 CUSTOM_RULESDIR_ENVVAR = "DISTRONODE_LINT_CUSTOM_RULESDIR"
-RULE_DOC_URL = "https://distronode-lint.readthedocs.io/rules/"
+RULE_DOC_URL = "https://distronode.readthedocs.io/projects/lint/rules/"
 SKIP_SCHEMA_UPDATE = "DISTRONODE_LINT_SKIP_SCHEMA_UPDATE"
 
 ENV_VARS_HELP = {

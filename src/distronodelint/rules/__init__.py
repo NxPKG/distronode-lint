@@ -1,4 +1,5 @@
 """All internal distronode-lint rules."""
+
 from __future__ import annotations
 
 import copy
@@ -92,7 +93,7 @@ class DistronodeLintRule(BaseRule):
         match_type: str | None = None
         while not match_type and frame is not None:
             func_name = frame.f_code.co_name
-            match_type = match_types.get(func_name, None)
+            match_type = match_types.get(func_name)
             if match_type:
                 # add the match_type to the match
                 match.match_type = match_type
@@ -108,8 +109,8 @@ class DistronodeLintRule(BaseRule):
         match.task = task
         if not match.details:
             match.details = "Task/Handler: " + distronodelint.utils.task_to_str(task)
-        if match.lineno < task[LINE_NUMBER_KEY]:
-            match.lineno = task[LINE_NUMBER_KEY]
+
+        match.lineno = max(match.lineno, task[LINE_NUMBER_KEY])
 
     def matchlines(self, file: Lintable) -> list[MatchError]:
         matches: list[MatchError] = []
@@ -395,7 +396,7 @@ class RulesCollection:
         else:
             self.options = options
         self.profile = []
-        self.app = app or get_app(offline=True)
+        self.app = app or get_app(cached=True)
 
         if profile_name:
             self.profile = PROFILES[profile_name]
@@ -454,6 +455,9 @@ class RulesCollection:
 
     def __getitem__(self, item: Any) -> BaseRule:
         """Return a rule from inside the collection based on its id."""
+        if not isinstance(item, str):
+            msg = f"Expected str but got {type(item)} when trying to access rule by it's id"
+            raise RuntimeError(msg)
         for rule in self.rules:
             if rule.id == item:
                 return rule
@@ -499,11 +503,16 @@ class RulesCollection:
                 or rule.has_dynamic_tags
                 or not set(rule.tags).union([rule.id]).isdisjoint(tags)
             ):
-                _logger.debug("Running rule %s", rule.id)
-                rule_definition = set(rule.tags)
-                rule_definition.add(rule.id)
-                if set(rule_definition).isdisjoint(skip_list):
-                    matches.extend(rule.getmatches(file))
+                if tags and set(rule.tags).union(list(rule.ids().keys())).isdisjoint(
+                    tags,
+                ):
+                    _logger.debug("Skipping rule %s", rule.id)
+                else:
+                    _logger.debug("Running rule %s", rule.id)
+                    rule_definition = set(rule.tags)
+                    rule_definition.add(rule.id)
+                    if set(rule_definition).isdisjoint(skip_list):
+                        matches.extend(rule.getmatches(file))
             else:
                 _logger.debug("Skipping rule %s", rule.id)
 
@@ -557,7 +566,7 @@ class RulesCollection:
                 tags[tag] = list(rule.ids())
         result = "# List of tags and rules they cover\n"
         for tag in sorted(tags):
-            desc = tag_desc.get(tag, None)
+            desc = tag_desc.get(tag)
             if desc:
                 result += f"{tag}:  # {desc}\n"
             else:

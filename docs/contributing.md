@@ -1,7 +1,7 @@
 # Contributing to Distronode-lint
 
-To contribute to distronode-lint, please use pull requests on a branch of your own
-fork.
+To contribute to distronode-lint, please use pull requests on a branch of your
+own fork.
 
 After [creating your fork on GitHub], you can do:
 
@@ -50,7 +50,8 @@ Possible security bugs should be reported via email to
 
 As with all Distronode projects, we have a [Code of Conduct].
 
-[distronode announce]: https://groups.google.com/forum/#!forum/distronode-announce
+[distronode announce]:
+  https://groups.google.com/forum/#!forum/distronode-announce
 [distronode communication]:
   https://docs.distronode.com/distronode/latest/community/communication.html
 [code of conduct]:
@@ -96,8 +97,8 @@ create a new rule by following the steps below:
   use inside blocks as well.
 - Optionally run only the rule specific tests with a command like:
   {command}`tox -e py -- -k NewRule`
-- Run {command}`tox` in order to run all distronode-lint tests. Adding a new rule
-  can break some other tests. Update them if needed.
+- Run {command}`tox` in order to run all distronode-lint tests. Adding a new
+  rule can break some other tests. Update them if needed.
 - Run {command}`distronode-lint -L` and check that the rule description renders
   correctly.
 - Build the docs using {command}`tox -e docs` and check that the new rule is
@@ -115,5 +116,5 @@ Building docs locally may not be identical to CI/CD builds. We recommend you to
 create a draft PR and check the RTD PR preview page too.
 
 If you do not want to learn the reStructuredText format, you can also
-[file an issue](https://github.com/distronode/distronode-lint/issues), and let us know
-how we can improve our documentation.
+[file an issue](https://github.com/distronode/distronode-lint/issues), and let
+us know how we can improve our documentation.

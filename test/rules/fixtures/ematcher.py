@@ -1,4 +1,5 @@
 """Custom rule used as fixture."""
+
 from distronodelint.rules import DistronodeLintRule
 
 

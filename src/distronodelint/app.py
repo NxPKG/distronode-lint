@@ -1,4 +1,5 @@
 """Application."""
+
 from __future__ import annotations
 
 import copy
@@ -30,6 +31,7 @@ if TYPE_CHECKING:
 
 
 _logger = logging.getLogger(__package__)
+_CACHED_APP = None
 
 
 class App:
@@ -46,7 +48,11 @@ class App:
         self.formatter = formatter_factory(options.cwd, options.display_relative_path)
 
         # Without require_module, our _set_collections_basedir may fail
-        self.runtime = Runtime(isolated=True, require_module=True)
+        self.runtime = Runtime(
+            isolated=True,
+            require_module=True,
+            verbosity=options.verbosity,
+        )
 
     def render_matches(self, matches: list[MatchError]) -> None:
         """Display given matches (if they are not fixed)."""
@@ -54,7 +60,7 @@ class App:
 
         if isinstance(
             self.formatter,
-            (formatters.CodeclimateJSONFormatter, formatters.SarifFormatter),
+            formatters.CodeclimateJSONFormatter | formatters.SarifFormatter,
         ):
             # If formatter CodeclimateJSONFormatter or SarifFormatter is chosen,
             # then print only the matches in JSON
@@ -205,7 +211,7 @@ class App:
                 ignore_file.writelines(sorted(lines))
         elif matched_rules and not self.options.quiet:
             console_stderr.print(
-                "Read [link=https://distronode-lint.readthedocs.io/configuring/#ignoring-rules-for-entire-files]documentation[/link] for instructions on how to ignore specific rule violations.",
+                "Read [link=https://distronode.readthedocs.io/projects/lint/configuring/#ignoring-rules-for-entire-files]documentation[/link] for instructions on how to ignore specific rule violations.",
             )
 
         # Do not deprecate the old tags just yet. Why? Because it is not currently feasible
@@ -381,8 +387,19 @@ def _sanitize_list_options(tag_list: list[str]) -> list[str]:
 
 
 @lru_cache
-def get_app(*, offline: bool | None = None) -> App:
+def get_app(*, offline: bool | None = None, cached: bool = False) -> App:
     """Return the application instance, caching the return value."""
+    # Avoids ever running the app initialization twice if cached argument
+    # is mentioned.
+    if cached:
+        if offline is not None:
+            msg = (
+                "get_app should never be called with other arguments when cached=True."
+            )
+            raise RuntimeError(msg)
+        if cached and _CACHED_APP is not None:
+            return _CACHED_APP
+
     if offline is None:
         offline = default_options.offline
 

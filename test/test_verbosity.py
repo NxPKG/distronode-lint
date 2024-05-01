@@ -1,4 +1,5 @@
 """Tests related to our logging/verbosity setup."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -6,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from distronodelint.testing import run_distronode_lint
+from distronodelint.text import strip_ansi_escape
 
 
 # substrs is a list of tuples, where:
@@ -83,6 +85,9 @@ def test_verbosity(
     else:
         result = run_distronode_lint(str(fakerole), cwd=project_path)
 
+    result.stderr = strip_ansi_escape(result.stderr)
+    result.stdout = strip_ansi_escape(result.stdout)
+    assert result.returncode == 2, result
     for substr, invert in substrs:
         if invert:
             assert substr not in result.stderr, result.stderr

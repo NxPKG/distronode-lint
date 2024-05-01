@@ -7,12 +7,13 @@ underscore `_` character. Variable names must also start with either an
 alphabetic or underscore `_` character.
 
 For more information see the [creating valid variable names][var-names] topic in
-Distronode documentation and [Naming things (Good Practices for Distronode)][cop].
+Distronode documentation and [Naming things (Good Practices for
+Distronode)][cop].
 
 You should also be fully aware of [special variables][magic-vars], also known as
-magic variables, especially as most of them can only be read. While Distronode will
-just ignore any attempt to set them, the linter will notify the user, so they
-would not be confused about a line that does not effectively do anything.
+magic variables, especially as most of them can only be read. While Distronode
+will just ignore any attempt to set them, the linter will notify the user, so
+they would not be confused about a line that does not effectively do anything.
 
 Possible errors messages:
 
@@ -23,7 +24,8 @@ Possible errors messages:
 - `var-naming[pattern]`: Variables names should match ... regex.
 - `var-naming[no-role-prefix]`: Variables names from within roles should use
   `role_name_` as a prefix. Underlines are accepted before the prefix.
-- `var-naming[no-reserved]`: Variables names must not be Distronode reserved names.
+- `var-naming[no-reserved]`: Variables names must not be Distronode reserved
+  names.
 - `var-naming[read-only]`: This special variable is read-only.
 
 !!! note

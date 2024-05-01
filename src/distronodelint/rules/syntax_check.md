@@ -1,7 +1,7 @@
 # syntax-check
 
-Our linter runs `distronode-playbook --syntax-check` on all playbooks, and if any
-of these reports a syntax error, this stops any further processing of these
+Our linter runs `distronode-playbook --syntax-check` on all playbooks, and if
+any of these reports a syntax error, this stops any further processing of these
 files.
 
 This error **cannot be disabled** due to being a prerequisite for other steps.
@@ -23,10 +23,21 @@ various variables at the beginning of the playbook.
 This rule can produce messages like:
 
 - `syntax-check[empty-playbook]`: Empty playbook, nothing to do
-- `syntax-check[malformed]`: A malformed block was encountered while loading a block
-- `syntax-check[missing-file]`: Unable to retrieve file contents ... Could not find or access ...
+- `syntax-check[malformed]`: A malformed block was encountered while loading a
+  block
+- `syntax-check[missing-file]`: Unable to retrieve file contents ... Could not
+  find or access ...
 - `syntax-check[unknown-module]`: couldn't resolve module/action
 - `syntax-check[specific]`: for other errors not mentioned above.
+
+## syntax-check[unknown-module]
+
+The linter relies on distronode-core code to load the distronode code and it
+will produce a syntax error if the code refers to distronode content that is not
+installed. You must ensure that all collections and roles used inside your
+repository are listed inside a
+[`requirements.yml`](https://docs.distronode.com/distronode/latest/galaxy/user_guide.html#installing-roles-and-collections-from-the-same-requirements-yml-file)
+file, so the linter can install them when they are missing.
 
 ## Problematic code
 

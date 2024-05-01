@@ -1,4 +1,5 @@
 """Runner implementation."""
+
 from __future__ import annotations
 
 import json
@@ -26,10 +27,6 @@ from distronode_compat.runtime import DistronodeWarning
 
 import distronodelint.skip_utils
 import distronodelint.utils
-from distronodelint._internal.rules import (
-    BaseRule,
-    LoadingFailureRule,
-)
 from distronodelint.app import App, get_app
 from distronodelint.constants import States
 from distronodelint.errors import LintWarning, MatchError, WarnSource
@@ -39,17 +36,15 @@ from distronodelint.rules.syntax_check import OUTPUT_PATTERNS
 from distronodelint.text import strip_ansi_escape
 from distronodelint.utils import (
     PLAYBOOK_DIR,
-    _include_children,
-    _roles_children,
-    _taskshandlers_children,
+    HandleChildren,
     parse_examples_from_plugin,
     template,
 )
 
 if TYPE_CHECKING:
-    from collections.abc import Generator
-    from typing import Callable
+    from collections.abc import Callable, Generator
 
+    from distronodelint._internal.rules import BaseRule
     from distronodelint.config import Options
     from distronodelint.constants import FileType
     from distronodelint.rules import RulesCollection
@@ -184,9 +179,9 @@ class Runner:
                     else:
                         filename = warn.source
                         match = MatchError(
-                            message=warn.message
-                            if isinstance(warn.message, str)
-                            else "?",
+                            message=(
+                                warn.message if isinstance(warn.message, str) else "?"
+                            ),
                             rule=self.rules["warning"],
                             filename=str(filename),
                         )
@@ -237,7 +232,7 @@ class Runner:
 
         # -- phase 1 : syntax check in parallel --
         if not self.skip_distronode_syntax_check:
-            app = get_app(offline=True)
+            app = get_app(cached=True)
 
             def worker(lintable: Lintable) -> list[MatchError]:
                 return self._get_distronode_syntax_check_matches(
@@ -398,7 +393,10 @@ class Runner:
                         filename = lintable
                     column = int(groups.get("column", 1))
 
-                    if pattern.tag == "unknown-module" and app.options.nodeps:
+                    if (
+                        pattern.tag in ("unknown-module", "specific")
+                        and app.options.nodeps
+                    ):
                         ignore_rc = True
                     else:
                         results.append(
@@ -458,7 +456,7 @@ class Runner:
                 except MatchError as exc:
                     if not exc.filename:  # pragma: no branch
                         exc.filename = str(lintable.path)
-                    exc.rule = LoadingFailureRule()
+                    exc.rule = self.rules["load-failure"]
                     yield exc
                 except AttributeError:
                     yield MatchError(lintable=lintable, rule=self.rules["load-failure"])
@@ -523,22 +521,28 @@ class Runner:
     ) -> list[Lintable]:
         """Flatten the traversed play tasks."""
         # pylint: disable=unused-argument
-        delegate_map: dict[str, Callable[[str, Any, Any, FileType], list[Lintable]]] = {
-            "tasks": _taskshandlers_children,
-            "pre_tasks": _taskshandlers_children,
-            "post_tasks": _taskshandlers_children,
-            "block": _taskshandlers_children,
-            "include": _include_children,
-            "distronode.builtin.include": _include_children,
-            "import_playbook": _include_children,
-            "distronode.builtin.import_playbook": _include_children,
-            "roles": _roles_children,
-            "dependencies": _roles_children,
-            "handlers": _taskshandlers_children,
-            "include_tasks": _include_children,
-            "distronode.builtin.include_tasks": _include_children,
-            "import_tasks": _include_children,
-            "distronode.builtin.import_tasks": _include_children,
+
+        handlers = HandleChildren(self.rules)
+
+        delegate_map: dict[
+            str,
+            Callable[[str, Any, Any, FileType], list[Lintable]],
+        ] = {
+            "tasks": handlers.taskshandlers_children,
+            "pre_tasks": handlers.taskshandlers_children,
+            "post_tasks": handlers.taskshandlers_children,
+            "block": handlers.taskshandlers_children,
+            "include": handlers.include_children,
+            "distronode.builtin.include": handlers.include_children,
+            "import_playbook": handlers.include_children,
+            "distronode.builtin.import_playbook": handlers.include_children,
+            "roles": handlers.roles_children,
+            "dependencies": handlers.roles_children,
+            "handlers": handlers.taskshandlers_children,
+            "include_tasks": handlers.include_children,
+            "distronode.builtin.include_tasks": handlers.include_children,
+            "import_tasks": handlers.include_children,
+            "distronode.builtin.import_tasks": handlers.include_children,
         }
         (k, v) = item
         add_all_plugin_dirs(str(basedir.resolve()))

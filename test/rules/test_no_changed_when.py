@@ -1,4 +1,5 @@
 """Tests for no-change-when rule."""
+
 from distronodelint.rules import RulesCollection
 from distronodelint.rules.no_changed_when import CommandHasChangesCheckRule
 from distronodelint.runner import Runner

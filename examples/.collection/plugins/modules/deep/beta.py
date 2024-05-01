@@ -1,6 +1,5 @@
 """An distronode test module."""
 
-
 DOCUMENTATION = """
 module: mod_2
 author:

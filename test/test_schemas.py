@@ -1,4 +1,5 @@
 """Test schemas modules."""
+
 import json
 import logging
 import os
@@ -92,7 +93,7 @@ def test_spdx() -> None:
         spx_enum = schema["$defs"]["SPDXLicenseEnum"]["enum"]
     if set(spx_enum) != license_ids:
         # In absence of a
-        if os.environ.get("PIP_CONSTRAINT", "/dev/null") != "/dev/null":
+        if os.environ.get("PIP_CONSTRAINT", "/dev/null") == "/dev/null":
             with galaxy_json.open("w", encoding="utf-8") as f:
                 schema["$defs"]["SPDXLicenseEnum"]["enum"] = sorted(license_ids)
                 json.dump(schema, f, indent=2)
@@ -101,7 +102,7 @@ def test_spdx() -> None:
             )
         else:
             warnings.warn(
-                "test_spdx failure was ignored because constraints were not pinned (PIP_CONSTRAINTS). This is expected for py39 and py-devel jobs.",
+                "test_spdx failure was ignored because constraints were not pinned (PIP_CONSTRAINTS). This is expected for py310 and py-devel jobs.",
                 category=pytest.PytestWarning,
                 stacklevel=1,
             )

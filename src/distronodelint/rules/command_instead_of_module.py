@@ -1,4 +1,5 @@
 """Implementation of command-instead-of-module rule."""
+
 # Copyright (c) 2013-2014 Will Thames <will@thames.id.au>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -69,8 +70,16 @@ class CommandsInsteadOfModulesRule(DistronodeLintRule):
 
     _executable_options = {
         "git": ["branch", "log", "lfs", "rev-parse"],
-        "systemctl": ["--version", "kill", "set-default", "show-environment", "status"],
-        "yum": ["clean"],
+        "systemctl": [
+            "--version",
+            "get-default",
+            "kill",
+            "set-default",
+            "set-property",
+            "show-environment",
+            "status",
+        ],
+        "yum": ["clean", "history", "info"],
         "rpm": ["--nodeps"],
     }
 

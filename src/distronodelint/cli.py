@@ -1,4 +1,5 @@
 """CLI parser setup and helpers."""
+
 from __future__ import annotations
 
 import argparse
@@ -7,7 +8,7 @@ import os
 import sys
 from argparse import Namespace
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 from distronodelint.config import (
     DEFAULT_KINDS,
@@ -29,7 +30,7 @@ from distronodelint.schemas.main import validate_file_schema
 from distronodelint.yaml_utils import clean_json
 
 if TYPE_CHECKING:
-    from collections.abc import Sequence
+    from collections.abc import Callable, Sequence
 
 
 _logger = logging.getLogger(__name__)
@@ -134,7 +135,7 @@ class AbspathArgAction(argparse.Action):
         values: str | Sequence[Any] | None,
         option_string: str | None = None,
     ) -> None:
-        if isinstance(values, (str, Path)):
+        if isinstance(values, str | Path):
             values = [values]
         if values:
             normalized_values = [
@@ -525,8 +526,8 @@ def merge_config(file_config: dict[Any, Any], cli_config: Options) -> Options:
         v = getattr(cli_config, entry) or file_value
         setattr(cli_config, entry, v)
 
-    for entry, default in scalar_map.items():
-        file_value = file_config.pop(entry, default)
+    for entry, default_scalar in scalar_map.items():
+        file_value = file_config.pop(entry, default_scalar)
         v = getattr(cli_config, entry, None) or file_value
         setattr(cli_config, entry, v)
 

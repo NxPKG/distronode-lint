@@ -1,4 +1,5 @@
 """Test ability to import playbooks."""
+
 from distronodelint.rules import RulesCollection
 from distronodelint.runner import Runner
 

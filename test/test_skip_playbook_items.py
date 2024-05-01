@@ -1,4 +1,5 @@
 """Tests related to use of noqa inside playbooks."""
+
 import pytest
 
 from distronodelint.testing import RunFromText

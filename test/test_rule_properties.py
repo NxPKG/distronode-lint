@@ -1,4 +1,5 @@
 """Tests related to rule properties."""
+
 from distronodelint.rules import RulesCollection
 
 

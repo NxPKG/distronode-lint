@@ -1,4 +1,5 @@
 """Tests related to use of inline noqa."""
+
 import pytest
 
 from distronodelint.rules import RulesCollection

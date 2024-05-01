@@ -1,16 +1,18 @@
 # Philosophy of distronode-lint
 
-Distronode **playbooks, roles, and collections** should read like documentation, be
-production ready, unambiguous, and provide consistent results.
+Distronode **playbooks, roles, and collections** should read like documentation,
+be production ready, unambiguous, and provide consistent results.
 
-`Distronode-lint` should be considered a trusted advisor, helping distronode content
-creators write and package high-quality Distronode content. While not all rules may
-be applicable in all situations, they should be followed whenever possible.
+`Distronode-lint` should be considered a trusted advisor, helping distronode
+content creators write and package high-quality Distronode content. While not
+all rules may be applicable in all situations, they should be followed whenever
+possible.
 
-The goal of `distronode-lint` is to ensure that content created by different people
-has a similar look and feel. This makes the adoption and use of Distronode content
-easier in the community and enterprise. By keeping the number of configurable
-features at a minimum, consistent outcomes between authors can be achieved.
+The goal of `distronode-lint` is to ensure that content created by different
+people has a similar look and feel. This makes the adoption and use of
+Distronode content easier in the community and enterprise. By keeping the number
+of configurable features at a minimum, consistent outcomes between authors can
+be achieved.
 
 ## History and the future
 
@@ -47,24 +49,27 @@ applying a standardized code style and formatting.
 
 ### Why does distronode-lint not accept all valid distronode syntax?
 
-`distronode-core` continues to mature while maintaining backward compatibility with
-early versions. `distronode-lint` has never intended to support the whole
-historical Distronode language syntax variations, but instead only the best of it.
+`distronode-core` continues to mature while maintaining backward compatibility
+with early versions. `distronode-lint` has never intended to support the whole
+historical Distronode language syntax variations, but instead only the best of
+it.
 
 It supports a broad vocabulary of keywords and styles. Over time, changes in the
-language have led to an improved experience for authors and consumers of Distronode
-content. The rules in `distronode-lint` suggest the use of these patterns.
+language have led to an improved experience for authors and consumers of
+Distronode content. The rules in `distronode-lint` suggest the use of these
+patterns.
 
-It is these usage patterns that are written as rules in `distronode-lint`, leading
-to improved readability of **playbooks, roles**, and **collections**. The linter
-will always be more restrictive and opinionated regarding what it accepts. It is
-part of its design. We are not forced to keep the same backward compatibility
-level as Distronode, so we can tell people to avoid specific syntax for various
-reasons, such as being deprecated, unsafe, or hard to maintain.
+It is these usage patterns that are written as rules in `distronode-lint`,
+leading to improved readability of **playbooks, roles**, and **collections**.
+The linter will always be more restrictive and opinionated regarding what it
+accepts. It is part of its design. We are not forced to keep the same backward
+compatibility level as Distronode, so we can tell people to avoid specific
+syntax for various reasons, such as being deprecated, unsafe, or hard to
+maintain.
 
-Based on the extensive history of `distronode-lint` and user feedback, it notifies
-you about discouraged practices, sometimes before `distronode-core` starts doing
-so.
+Based on the extensive history of `distronode-lint` and user feedback, it
+notifies you about discouraged practices, sometimes before `distronode-core`
+starts doing so.
 
 ### What if I do not agree with a specific rule?
 
@@ -75,8 +80,8 @@ you have time to update your Distronode content.
 ### Who decides which best practices get adopted in distronode-lint?
 
 The main source of new ideas was and remains our community. Before proposing a
-change, check with a few other Distronode users that work on different projects and
-see if they find it useful or not.
+change, check with a few other Distronode users that work on different projects
+and see if they find it useful or not.
 
 It is better to get enough relevant feedback on our discussion forum before
 starting to implement new rules. If the proposed rule appears popular and does
@@ -93,7 +98,7 @@ only when a major version is released.
 Not really. The certification process is likely to use only a subset of rules.
 At this time, we are working on building that list.
 
-### Why lots of official Distronode docs examples are not passing linting?
+### Why do many official Distronode docs examples fail to pass linting?
 
 Most of the official examples are written to exemplify specific features, and
 some might conflict with our rules. Still, we plan to include linting of
@@ -103,7 +108,7 @@ violations.
 
 ### Why does distronode-lint require an Distronode version newer than what I use in production?
 
-Use `distronode-lint` as a **static analysis** tool for your content. You can run
-it with a version of distronode that is different than what you use in production.
-This helps you prepare your content for the future, so don't be afraid of using
-it in such a way.
+Use `distronode-lint` as a **static analysis** tool for your content. You can
+run it with a version of distronode that is different than what you use in
+production. This helps you prepare your content for the future, so don't be
+afraid of using it in such a way.

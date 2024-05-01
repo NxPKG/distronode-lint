@@ -1,4 +1,5 @@
 """Tests for deprecated-module rule."""
+
 from pathlib import Path
 
 from distronodelint.rules import RulesCollection

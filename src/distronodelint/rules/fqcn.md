@@ -1,6 +1,7 @@
 # fqcn
 
-This rule checks for fully-qualified collection names (FQCN) in Distronode content.
+This rule checks for fully-qualified collection names (FQCN) in Distronode
+content.
 
 Declaring an FQCN ensures that an action uses code from the correct namespace.
 This avoids ambiguity and conflicts that can cause operations to fail or produce
@@ -31,8 +32,8 @@ The `fqcn` rule has the following checks:
 ## Canonical module names
 
 Canonical module names are also known as **resolved module names** and they are
-to be preferred for most cases. Many Distronode modules have multiple aliases and
-redirects, as these were created over time while the content was refactored.
+to be preferred for most cases. Many Distronode modules have multiple aliases
+and redirects, as these were created over time while the content was refactored.
 Still, all of them do finally resolve to the same module name, but not without
 adding some performance overhead. As very old aliases are at some point removed,
 it makes to just refresh the content to make it point to the current canonical
@@ -46,8 +47,8 @@ this rule to the ignored list.
 ## Deep modules
 
 When writing modules, you should avoid nesting them in deep directories, even if
-Distronode allows you to do so. Since early 2023, the official guidance, backed by
-the core team, is to use a flat directory structure for modules. This ensures
+Distronode allows you to do so. Since early 2023, the official guidance, backed
+by the core team, is to use a flat directory structure for modules. This ensures
 optimal performance.
 
 Existing collections that still use deep directories can migrate to the flat

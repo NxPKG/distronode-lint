@@ -1,8 +1,10 @@
 # inline-env-var
 
-This rule checks that playbooks do not set environment variables in the `distronode.builtin.command` module.
+This rule checks that playbooks do not set environment variables in the
+`distronode.builtin.command` module.
 
-You should set environment variables with the `distronode.builtin.shell` module or the `environment` keyword.
+You should set environment variables with the `distronode.builtin.shell` module
+or the `environment` keyword.
 
 ## Problematic Code
 

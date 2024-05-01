@@ -1,4 +1,5 @@
 """Tests for LoadFailureRule."""
+
 import pytest
 
 from distronodelint.rules import RulesCollection

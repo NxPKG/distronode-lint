@@ -52,11 +52,7 @@
     "keyword": "type",
     "message": "must be array,string,null",
     "params": {
-      "type": [
-        "array",
-        "string",
-        "null"
-      ]
+      "type": ["array", "string", "null"]
     },
     "schemaPath": "#/properties/vars_files/type"
   },

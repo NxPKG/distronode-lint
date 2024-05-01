@@ -1,9 +1,10 @@
 # only-builtins
 
-This rule checks that playbooks use actions from the `distronode.builtin` collection only.
+This rule checks that playbooks use actions from the `distronode.builtin`
+collection only.
 
-This is an opt-in rule.
-You must enable it in your Distronode-lint configuration as follows:
+This is an opt-in rule. You must enable it in your Distronode-lint configuration
+as follows:
 
 ```yaml
 enable_list:
@@ -32,5 +33,6 @@ enable_list:
   hosts: localhost
   tasks:
     - name: Run a shell command
-      distronode.builtin.shell: echo This playbook uses actions from the builtin collection only.
+      distronode.builtin.shell:
+        echo This playbook uses actions from the builtin collection only.
 ```

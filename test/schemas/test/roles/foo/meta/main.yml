@@ -5,6 +5,7 @@ dependencies:
     version: "1.0"
   - name: distronode-role-bar
     version: "1.0"
+  - distronode-role-baz
   # from Bitbucket
   - src: git+http://bitbucket.org/willthames/git-distronode-galaxy
     version: v1.4

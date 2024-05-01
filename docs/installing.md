@@ -1,3 +1,8 @@
+---
+# YAML header
+render_macros: true
+---
+
 # Installing
 
 Install Distronode-lint to apply rules and follow best practices with your
@@ -13,9 +18,9 @@ automation content.
     this document. Before raising any bugs related to installation, review all of
     the following details:
 
-    - You should use installation methods outlined in this document only.
+    - You should use the installation methods outlined in this document only.
     - You should upgrade the Python installer (`pip` or `pipx`) to the latest
-      version available from pypi.org. If you used a system package manager, you
+      version available from pypi.org. If you use a system package manager, you
       will need to upgrade the installer to a newer version.
     - If you are installing from a git zip archive, which is not supported but
       should work, ensure you use the main branch and the latest version of pip and
@@ -30,16 +35,19 @@ automation content.
     related to the installation will be closed and locked.
 
 For a container image, we recommend using
-[creator-ee](https://github.com/distronode/creator-ee/), which includes
-Distronode-lint. If you have a use case that the `creator-ee` container doesn't
-satisfy, please contact the team through the
-[discussions](https://github.com/distronode/distronode-lint/discussions) forum.
+[creator-ee](https://github.com/distronode/creator-ee/) which includes
+`distronode-dev-tools` (it combines critical Distronode development packages
+into a unified Python package). If you have a use case that the `creator-ee`
+container doesn't satisfy, please contact the team through the
+[discussion](https://github.com/distronode/distronode-lint/discussions) forum.
 
 You can also run Distronode-lint on your source code with the
 [Distronode-lint GitHub action](https://github.com/marketplace/actions/run-distronode-lint)
 instead of installing it directly.
 
 ## Installing the latest version
+
+{{ install_from_adt("distronode-lint") }}
 
 You can install the most recent version of Distronode-lint with the [pip3] or
 [pipx] Python package manager. Use [pipx] to isolate Distronode-lint from your
@@ -52,10 +60,9 @@ pip3 install distronode-lint
 
 !!! note
 
-    If you want to install the exact versions of all dependencies that were used
-    to test a specific version of distronode-lint, you can add `lock` extra. This
-    will only work with Python 3.10 or newer. Do this only inside a
-    virtual environment.
+    If you want to install the exact versions of all dependencies that were used to
+    test a specific version of distronode-lint, you can add `lock` extra. This will
+    only work with Python 3.10 or newer. Do this only inside a virtual environment.
 
     ```bash
     pip3 install "distronode-lint[lock]"
@@ -63,8 +70,8 @@ pip3 install distronode-lint
 
 ## Installing on Fedora and RHEL
 
-You can install Distronode-lint on Fedora, or Red Hat Enterprise Linux (RHEL) with
-the `dnf` package manager.
+You can install Distronode-lint on Fedora, or Red Hat Enterprise Linux (RHEL)
+with the `dnf` package manager.
 
 ```bash
 dnf install distronode-lint
@@ -92,8 +99,8 @@ pip3 install git+https://github.com/distronode/distronode-lint
 
 ## Installing Distronode Lint as a GitHub Action
 
-To use the action simply create a file `.github/workflows/distronode-lint.yml` with
-content similar to the example below:
+To use the action simply create a file `.github/workflows/distronode-lint.yml`
+with content similar to the example below:
 
 ```yaml
 # .github/workflows/distronode-lint.yml
@@ -113,10 +120,10 @@ jobs:
 
 Due to limitations on how GitHub Actions are processing arguments, we do not
 plan to provide extra options. You will have to make use of
-[distronode-lint own configuration file](https://distronode-lint.readthedocs.io/configuring/)
-for altering its behavior.
+[distronode-lint own configuration file](https://distronode.readthedocs.io/projects/lint/configuring/)
+to alter its behavior.
 
-To also enable [dependabot][dependabot] automatic updates the newer versions of
+To also enable [dependabot][dependabot] automatic updates, the newer versions of
 distronode-lint action you should create a file similar to
 [.github/dependabot.yml][.github/dependabot.yml]
 

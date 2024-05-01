@@ -1,9 +1,9 @@
 # loop-var-prefix
 
 This rule avoids conflicts with nested looping tasks by enforcing an individual
-variable name in loops. Distronode defaults to `item` as the loop variable. You can
-use `loop_var` to rename it. Optionally require a prefix on the variable name.
-The prefix can be configured via the `<loop_var_prefix>` setting.
+variable name in loops. Distronode defaults to `item` as the loop variable. You
+can use `loop_var` to rename it. Optionally require a prefix on the variable
+name. The prefix can be configured via the `<loop_var_prefix>` setting.
 
 This rule can produce the following messages:
 
@@ -26,8 +26,8 @@ part is replaced with the inferred role name when applicable.
 loop_var_prefix: "^(__|{role}_)"
 ```
 
-This is an opt-in rule. You must enable it in your Distronode-lint configuration as
-follows:
+This is an opt-in rule. You must enable it in your Distronode-lint configuration
+as follows:
 
 ```yaml
 enable_list:

@@ -1,4 +1,5 @@
 """Assure samples produced desire outcomes."""
+
 import pytest
 
 from distronodelint.app import get_app

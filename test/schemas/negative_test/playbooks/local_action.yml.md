@@ -61,10 +61,7 @@
     "keyword": "type",
     "message": "must be string,object",
     "params": {
-      "type": [
-        "string",
-        "object"
-      ]
+      "type": ["string", "object"]
     },
     "schemaPath": "#/properties/local_action/type"
   },

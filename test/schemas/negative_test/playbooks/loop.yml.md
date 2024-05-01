@@ -61,10 +61,7 @@
     "keyword": "type",
     "message": "must be string,array",
     "params": {
-      "type": [
-        "string",
-        "array"
-      ]
+      "type": ["string", "array"]
     },
     "schemaPath": "#/properties/loop/type"
   },

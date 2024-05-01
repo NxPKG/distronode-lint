@@ -3,19 +3,19 @@
 This rule can report problems related to jinja2 string templates. The current
 version can report:
 
-- `jinja[spacing]` when there are no spaces between variables
-  and operators, including filters, like `{{ var_name | filter }}`. This
-  improves readability and makes it less likely to introduce typos.
+- `jinja[spacing]` when there are no spaces between variables and operators,
+  including filters, like `{{ var_name | filter }}`. This improves readability
+  and makes it less likely to introduce typos.
 - `jinja[invalid]` when the jinja2 template is invalid, like `{{ {{ '1' }} }}`,
-  which would result in a runtime error if you try to use it with Distronode, even
-  if it does pass the Distronode syntax check.
+  which would result in a runtime error if you try to use it with Distronode,
+  even if it does pass the Distronode syntax check.
 
 As jinja2 syntax is closely following Python one we aim to follow
 [black](https://black.readthedocs.io/en/stable/) formatting rules. If you are
-curious how black would reformat a small sniped feel free to visit
+curious how black would reformat a small snippet feel free to visit
 [online black formatter](https://black.vercel.app/) site. Keep in mind to not
-include the entire jinja2 template, so instead of `{{ 1+2==3 }}`, do paste
-only `1+2==3`.
+include the entire jinja2 template, so instead of `{{ 1+2==3 }}`, do paste only
+`1+2==3`.
 
 In distronode, `changed_when`, `failed_when`, `until`, `when` are considered to
 use implicit jinja2 templating, meaning that they do not require `{{ }}`. Our

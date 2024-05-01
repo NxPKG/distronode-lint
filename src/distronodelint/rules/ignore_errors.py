@@ -1,4 +1,5 @@
 """IgnoreErrorsRule used with distronode-lint."""
+
 from __future__ import annotations
 
 import sys

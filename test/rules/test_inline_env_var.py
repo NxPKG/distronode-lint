@@ -1,4 +1,5 @@
 """Tests for inline-env-var rule."""
+
 from distronodelint.rules import RulesCollection
 from distronodelint.rules.inline_env_var import EnvVarsInCommandRule
 from distronodelint.testing import RunFromText

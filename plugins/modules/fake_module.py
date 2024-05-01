@@ -2,6 +2,7 @@
 
 This is used to test ability to detect and use custom modules.
 """
+
 from distronode.module_utils.basic import DistronodeModule
 
 EXAMPLES = r"""

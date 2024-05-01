@@ -13,8 +13,8 @@ only the last two major versions of Distronode.
 
 # Using distronode-lint as a GitHub Action
 
-This action allows you to run `distronode-lint` on your codebase without having to
-install it yourself.
+This action allows you to run `distronode-lint` on your codebase without having
+to install it yourself.
 
 ```yaml
 # .github/workflows/distronode-lint.yml
@@ -40,8 +40,8 @@ Please read [Contribution guidelines] if you wish to contribute.
 
 # Licensing
 
-The distronode-lint project is distributed as [GPLv3] due to use of [GPLv3] runtime
-dependencies, like `distronode` and `yamllint`.
+The distronode-lint project is distributed as [GPLv3] due to use of [GPLv3]
+runtime dependencies, like `distronode` and `yamllint`.
 
 For historical reasons, its own code-base remains licensed under a more liberal
 [MIT] license and any contributions made are accepted as being made under
@@ -49,15 +49,16 @@ original [MIT] license.
 
 # Authors
 
-distronode-lint was created by [Will Thames] and is now maintained as part of the
-[Distronode] by [Red Hat] project.
+distronode-lint was created by [Will Thames] and is now maintained as part of
+the [Distronode] by [Red Hat] project.
 
 [distronode]: https://distronode.com
-[contribution guidelines]: https://distronode-lint.readthedocs.io/contributing
+[contribution guidelines]:
+  https://distronode.readthedocs.io/projects/lint/contributing
 [gplv3]: https://github.com/distronode/distronode-lint/blob/main/COPYING
 [mit]:
   https://github.com/distronode/distronode-lint/blob/main/docs/licenses/LICENSE.mit.txt
 [red hat]: https://redhat.com
 [will thames]: https://github.com/willthames
 [distronode-lint-action]:
-  https://distronode-lint.readthedocs.io/installing/#installing-from-source-code
+  https://distronode.readthedocs.io/projects/lint/installing/#installing-from-source-code

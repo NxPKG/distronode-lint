@@ -37,9 +37,9 @@ skip_list:
   - yaml[indentation]
 ```
 
-If you want Distronode-lint to report YAML syntax violations as warnings, and not
-fatal errors, add tag identifiers to the `warn_list` in your configuration, for
-example:
+If you want Distronode-lint to report YAML syntax violations as warnings, and
+not fatal errors, add tag identifiers to the `warn_list` in your configuration,
+for example:
 
 ```yaml
 warn_list:
@@ -93,8 +93,10 @@ precedence over our defaults.
 
 ## Additional Information for Multiline Strings
 
-Adhering to yaml[line-length] rule, for writing multiline strings we recommend using Block Style Indicator: literal style indicated by a pipe (|) or folded style indicated by a right angle bracket (>), instead of escaping the newlines with backslashes.
-Reference [guide] for writing multiple line strings in yaml.
+Adhering to yaml[line-length] rule, for writing multiline strings we recommend
+using Block Style Indicator: literal style indicated by a pipe (|) or folded
+style indicated by a right angle bracket (>), instead of escaping the newlines
+with backslashes. Reference [guide] for writing multiple line strings in yaml.
 
 ## Problematic code
 
@@ -119,6 +121,7 @@ bar: ... # Correct comment indentation.
 [1.2.0]: https://yaml.org/spec/1.2.0/
 [1.2.2]: https://yaml.org/spec/1.2.2/
 [yaml specification]: https://yaml.org/
-[guide]: https://docs.distronode.com/distronode/latest/reference_appendices/YAMLSyntax.html#yaml-basics
+[guide]:
+  https://docs.distronode.com/distronode/latest/reference_appendices/YAMLSyntax.html#yaml-basics
 [prettier]: https://prettier.io/
 [yamllint]: https://yamllint.readthedocs.io/en/stable/

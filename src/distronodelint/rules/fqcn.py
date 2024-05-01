@@ -1,16 +1,19 @@
 """Rule definition for usage of fully qualified collection names for builtins."""
+
 from __future__ import annotations
 
 import logging
 import sys
 from typing import TYPE_CHECKING, Any
 
+from ruamel.yaml.comments import CommentedSeq
+
 from distronodelint.constants import LINE_NUMBER_KEY
 from distronodelint.rules import DistronodeLintRule, TransformMixin
 from distronodelint.utils import load_plugin
 
 if TYPE_CHECKING:
-    from ruamel.yaml.comments import CommentedMap, CommentedSeq
+    from ruamel.yaml.comments import CommentedMap
 
     from distronodelint.errors import MatchError
     from distronodelint.file_utils import Lintable
@@ -241,6 +244,8 @@ class FQCNBuiltinsRule(DistronodeLintRule, TransformMixin):
                 current_action = match.message.split("`")[3]
                 new_action = match.message.split("`")[1]
             for _ in range(len(target_task)):
+                if isinstance(target_task, CommentedSeq):
+                    continue
                 k, v = target_task.popitem(False)
                 target_task[new_action if k == current_action else k] = v
             match.fixed = True

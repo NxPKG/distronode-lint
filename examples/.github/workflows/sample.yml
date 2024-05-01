@@ -6,4 +6,4 @@ on: # <-- distronode-lint should not complain or touch about this 'on'
 
 jobs:
   ack:
-    uses: distronode/devtools/.github/workflows/ack.yml@main
+    uses: distronode/team-devtools/.github/workflows/ack.yml@main

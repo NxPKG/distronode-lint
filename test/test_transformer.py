@@ -1,4 +1,5 @@
 """Tests for Transformer."""
+
 from __future__ import annotations
 
 import os
@@ -27,8 +28,11 @@ def fixture_runner_result(
     config_options: Options,
     default_rules_collection: RulesCollection,
     playbook_str: str,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> LintResult:
     """Fixture that runs the Runner to populate a LintResult for a given file."""
+    # needed for testing transformer when roles/modules are missing:
+    monkeypatch.setenv("DISTRONODE_LINT_NODEPS", "1")
     config_options.lintables = [playbook_str]
     result = get_matches(rules=default_rules_collection, options=config_options)
     return result
@@ -76,7 +80,7 @@ def fixture_runner_result(
             id="strings",
         ),
         pytest.param("examples/playbooks/vars/empty.yml", 1, False, True, id="empty"),
-        pytest.param("examples/playbooks/name-case.yml", 1, True, True, id="name_case"),
+        pytest.param("examples/playbooks/name-case.yml", 2, True, True, id="name_case"),
         pytest.param("examples/playbooks/fqcn.yml", 3, True, True, id="fqcn"),
         pytest.param(
             "examples/playbooks/multi_yaml_doc.yml",
@@ -136,7 +140,7 @@ def fixture_runner_result(
         ),
         pytest.param(
             "examples/playbooks/transform-no-free-form.yml",
-            2,
+            3,
             True,
             True,
             id="no_free_form_transform",
@@ -154,6 +158,13 @@ def fixture_runner_result(
             True,
             True,
             id="key_order_play_transform",
+        ),
+        pytest.param(
+            "examples/playbooks/transform-key-order-block.yml",
+            1,
+            True,
+            True,
+            id="key_order_block_transform",
         ),
         pytest.param(
             "examples/.github/workflows/sample.yml",
@@ -174,7 +185,21 @@ def fixture_runner_result(
             1,
             True,
             True,
-            id="name_case_with_prefix",
+            id="name_casing_prefix",
+        ),
+        pytest.param(
+            "examples/roles/name_casing/tasks/main.yml",
+            2,
+            True,
+            True,
+            id="name_case_roles",
+        ),
+        pytest.param(
+            "examples/playbooks/4114/transform-with-missing-role-and-modules.yml",
+            1,
+            True,
+            True,
+            id="4114",
         ),
     ),
 )
@@ -195,11 +220,12 @@ def test_transformer(  # pylint: disable=too-many-arguments
     assert Lintable(playbook_str).is_owned_by_distronode() == is_owned_by_distronode
     playbook = Path(playbook_str)
     config_options.write_list = ["all"]
-    transformer = Transformer(result=runner_result, options=config_options)
-    transformer.run()
 
     matches = runner_result.matches
     assert len(matches) == matches_count
+
+    transformer = Transformer(result=runner_result, options=config_options)
+    transformer.run()
 
     orig_content = playbook.read_text(encoding="utf-8")
     if transformed:

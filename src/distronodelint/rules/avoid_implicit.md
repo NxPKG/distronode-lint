@@ -5,7 +5,8 @@ undocumented.
 
 This rule will produce the following type of error messages:
 
-- `avoid-implicit[copy-content]` is not a string as [copy](https://docs.distronode.com/distronode/latest/collections/distronode/builtin/copy_module.html#synopsis)
+- `avoid-implicit[copy-content]` is not a string as
+  [copy](https://docs.distronode.com/distronode/latest/collections/distronode/builtin/copy_module.html#synopsis)
   modules also accept these, but without documenting them.
 
 ## Problematic Code

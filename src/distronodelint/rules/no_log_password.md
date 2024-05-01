@@ -3,8 +3,9 @@
 This rule ensures playbooks do not write passwords to logs when using loops.
 Always set the `no_log: true` attribute to protect sensitive data.
 
-While most Distronode modules mask sensitive data, using secrets inside a loop can result in those secrets being logged.
-Explicitly adding `no_log: true` prevents accidentally exposing secrets.
+While most Distronode modules mask sensitive data, using secrets inside a loop
+can result in those secrets being logged. Explicitly adding `no_log: true`
+prevents accidentally exposing secrets.
 
 ## Problematic Code
 

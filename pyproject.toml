@@ -1,21 +1,20 @@
 [build-system]
 requires = [
   "setuptools >= 65.3.0", # required by pyproject+setuptools_scm integration and editable installs
-  "setuptools_scm[toml] >= 7.0.5", # required for "no-local-version" scheme
-
+  "setuptools_scm[toml] >= 7.0.5" # required for "no-local-version" scheme
 ]
 build-backend = "setuptools.build_meta"
 
 [project]
 # https://peps.python.org/pep-0621/#readme
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dynamic = ["version", "dependencies", "optional-dependencies"]
 name = "distronode-lint"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 readme = "README.md"
-authors = [{ "name" = "Will Thames", "email" = "will@thames.id.au" }]
-maintainers = [{ "name" = "Distronode by Red Hat", "email" = "info@distronode.com" }]
-license = { text = "GPLv3+" }
+authors = [{"name" = "Will Thames", "email" = "will@thames.id.au"}]
+maintainers = [{"name" = "Distronode by Red Hat", "email" = "info@distronode.com"}]
+license = {text = "GPLv3+"}
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
@@ -27,7 +26,6 @@ classifiers = [
   "Operating System :: POSIX",
   "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -36,34 +34,26 @@ classifiers = [
   "Topic :: System :: Systems Administration",
   "Topic :: Software Development :: Quality Assurance",
   "Topic :: Software Development :: Testing",
-  "Topic :: Utilities",
+  "Topic :: Utilities"
 ]
 keywords = ["distronode", "lint"]
-
-[project.urls]
-homepage = "https://github.com/distronode/distronode-lint"
-documentation = "https://distronode-lint.readthedocs.io/"
-repository = "https://github.com/distronode/distronode-lint"
-changelog = "https://github.com/distronode/distronode-lint/releases"
 
 [project.scripts]
 distronode-lint = "distronodelint.__main__:_run_cli_entrypoint"
 
+[project.urls]
+homepage = "https://github.com/distronode/distronode-lint"
+documentation = "https://distronode.readthedocs.io/projects/lint/"
+repository = "https://github.com/distronode/distronode-lint"
+changelog = "https://github.com/distronode/distronode-lint/releases"
+
 [tool.black]
-target-version = ["py39"]
+target-version = ["py310"]
 
 [tool.codespell]
 skip = ".tox,.mypy_cache,build,.git,.eggs,pip-wheel-metadata"
 # indention is a typo in ruamel.yaml's API
 ignore-words-list = "indention"
-
-[tool.coverage.run]
-source = ["src"]
-# Do not use branch until bug is fixes:
-# https://github.com/nedbat/coveragepy/issues/605
-# branch = true
-parallel = true
-concurrency = ["multiprocessing", "thread"]
 
 # Keep this default because xml/report do not know to use load it from config file:
 # data_file = ".coverage"
@@ -81,6 +71,14 @@ skip_empty = true
 ignore_errors = true
 show_missing = true
 
+[tool.coverage.run]
+source = ["src"]
+# Do not use branch until bug is fixes:
+# https://github.com/nedbat/coveragepy/issues/605
+# branch = true
+parallel = true
+concurrency = ["multiprocessing", "thread"]
+
 [tool.isort]
 profile = "black"
 # add_imports = "from __future__ import annotations"
@@ -95,7 +93,7 @@ ensure_newline_before_comments = true
 line_length = 88
 
 [tool.mypy]
-python_version = 3.9
+python_version = "3.10"
 strict = true
 color_output = true
 error_summary = true
@@ -109,7 +107,7 @@ disallow_any_generics = true
 # site-packages is here to help vscode mypy integration getting confused
 exclude = "(build|dist|test/local-content|site-packages|~/.pyenv|examples/playbooks/collections|plugins/modules)"
 # https://github.com/python/mypy/issues/12664
-no_incremental = true
+incremental = false
 
 [[tool.mypy.overrides]]
 module = [
@@ -117,23 +115,22 @@ module = [
   "distronodelint._version", # generated
   "license_expression",
   "ruamel.yaml",
-  "yamllint.*",
+  "yamllint.*"
 ]
 ignore_missing_imports = true
 ignore_errors = true
 
-[tool.pylint.MAIN]
-extension-pkg-allow-list = ["black.parsing"]
-
 [tool.pylint.IMPORTS]
 preferred-modules = ["py:pathlib", "unittest:pytest"]
+
+[tool.pylint.MAIN]
+extension-pkg-allow-list = ["black.parsing"]
 
 [tool.pylint.MASTER]
 bad-names = [
   # spell-checker:ignore linenumber
   "linenumber", # use lineno instead
-  "line_number", # use lineno instead
-
+  "line_number" # use lineno instead
 ]
 # pylint defaults + f,fh,v,id
 good-names = ["i", "j", "k", "Run", "_", "f", "fh", "v", "id", "T"]
@@ -154,10 +151,10 @@ disable = [
   # https://github.com/PyCQA/pylint/issues/850
   "cyclic-import",
   # https://github.com/PyCQA/pylint/issues/8453
-  "preferred-module",
+  "preferred-module"
 ]
 enable = [
-  "useless-suppression", # Identify unneeded pylint disable statements
+  "useless-suppression" # Identify unneeded pylint disable statements
 ]
 
 [tool.pylint.REPORTING]
@@ -169,7 +166,7 @@ score = "n"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md#sample-pyprojecttoml-file
-pythonVersion = "3.9"
+pythonVersion = "3.10"
 include = ["src"]
 # https://github.com/microsoft/pyright/issues/777
 "stubPath" = ""
@@ -196,7 +193,7 @@ filterwarnings = [
   # https://github.com/distronode/distronode/issues/81906
   "ignore:'importlib.abc.TraversableResources' is deprecated and slated for removal in Python 3.14:DeprecationWarning",
   # https://github.com/distronode/distronode/pull/80968
-  "ignore:Attribute s is deprecated and will be removed in Python 3.14; use value instead:DeprecationWarning",
+  "ignore:Attribute s is deprecated and will be removed in Python 3.14; use value instead:DeprecationWarning"
 ]
 junit_duration_report = "call"
 # Our github annotation parser from .github/workflows/tox.yml requires xunit1 format. Ref:
@@ -217,7 +214,7 @@ norecursedirs = [
   "collections",
   "dist",
   "docs",
-  "src/distronode_lint.egg-info",
+  "src/distronode_lint.egg-info"
 ]
 python_files = [
   "test_*.py",
@@ -225,7 +222,7 @@ python_files = [
   # Needed to discover legacy nose test modules:
   "Test*.py",
   # Needed to discover embedded Rule tests
-  "rules/*.py",
+  "rules/*.py"
 ]
 # Using --pyargs instead of testpath as we embed some tests
 # See: https://github.com/pytest-dev/pytest/issues/6451#issuecomment-687043537
@@ -252,15 +249,12 @@ ignore = [
   "TRY",
   "PERF203",
   "PD011", # We are not using pandas, any .values attributes are unrelated
+  "PLW0603" # global lock file in cache dir
 ]
 select = ["ALL"]
-target-version = "py39"
+target-version = "py310"
 # Same as Black.
 line-length = 88
-
-[tool.ruff.mccabe]
-# Implicit 10 is too low for our codebase, even black uses 18 as default.
-max-complexity = 20
 
 [tool.ruff.flake8-builtins]
 builtins-ignorelist = ["id"]
@@ -271,20 +265,23 @@ parametrize-values-type = "tuple"
 [tool.ruff.isort]
 known-first-party = ["distronodelint"]
 
+[tool.ruff.mccabe]
+# Implicit 10 is too low for our codebase, even black uses 18 as default.
+max-complexity = 20
+
 [tool.ruff.per-file-ignores]
 "test/**/*.py" = ["S"]
 "src/distronodelint/rules/*.py" = ["S"]
 "src/distronodelint/testing/*.py" = ["S"]
 # Temporary disabled until we fix them:
 "src/distronodelint/{utils,file_utils,runner,loaders,constants,config,cli,_mockings}.py" = [
-  "PTH",
+  "PTH"
 ]
 
 [tool.setuptools.dynamic]
-optional-dependencies.docs = { file = [".config/docs-requirements.txt"] }
-optional-dependencies.test = { file = [".config/test-requirements.txt"] }
-optional-dependencies.lock = { file = [".config/lock-requirements.txt"] }
-dependencies = { file = [".config/requirements.in"] }
+dependencies = {file = [".config/requirements.in"]}
+optional-dependencies.docs = {file = [".config/requirements-docs.in"]}
+optional-dependencies.test = {file = [".config/requirements-test.in"]}
 
 [tool.setuptools_scm]
 local_scheme = "no-local-version"
@@ -298,5 +295,5 @@ git_describe_command = [
   "--tags",
   "--long",
   "--match",
-  "v*.*",
+  "v*.*"
 ]

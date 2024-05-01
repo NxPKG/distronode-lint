@@ -11,11 +11,11 @@ such as playbooks, tasks, requirements, meta or vars and also for Molecule
 configuration.
 
 Keep in mind that these schemas will limit your freedom of choice regarding the
-syntax you can use to write Distronode tasks as they do not allow some historical
-forms which are still allowed by Distronode itself.
+syntax you can use to write Distronode tasks as they do not allow some
+historical forms which are still allowed by Distronode itself.
 
-Not any file accepted by Distronode will pass these schemas but we do expect that
-any file that passed these schemas should be accepted by Distronode.
+Not any file accepted by Distronode will pass these schemas but we do expect
+that any file that passed these schemas should be accepted by Distronode.
 
 - YAML 1.2 booleans are required as `true` or `false`, while Distronode itself
   allows you to use more relaxed forms like `yes` or `no`.
@@ -35,9 +35,9 @@ If you want to help improve the schemas, have a look at the
 
 ## Schema Bundle
 
-We are currently migrating towards a single [distronode.json](/f/distronode.json)
-schema bundle, one that contains subschema definitions for all the supported
-file types.
+We are currently migrating towards a single
+[distronode.json](/f/distronode.json) schema bundle, one that contains subschema
+definitions for all the supported file types.
 
 To configure your validator or editor to use the bundle, use the new URLs below,
 the part after the `#` in the URLs is essential for informing the loader about
@@ -51,10 +51,10 @@ extension.
 
 ## Jinja2 implicit vs explicit templating
 
-While Distronode might allow you to combine implicit and explicit templating, our
-schema will not. Our schemas will only allow you to use the recommended form,
-either by forbidding you to use the curly braces on implicit ones or forcing you
-to add them on explicit ones.
+While Distronode might allow you to combine implicit and explicit templating,
+our schema will not. Our schemas will only allow you to use the recommended
+form, either by forbidding you to use the curly braces on implicit ones or
+forcing you to add them on explicit ones.
 
 Examples:
 

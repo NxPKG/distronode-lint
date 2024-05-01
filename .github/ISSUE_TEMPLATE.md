@@ -15,15 +15,15 @@ distronode-lint --version
 
 # Desired Behavior
 
-Please give some details of the feature being requested
-or what should happen if providing a bug report
+Please give some details of the feature being requested or what should happen if
+providing a bug report
 
 Possible security bugs should be reported via email to `security@distronode.com`
 
 # Actual Behavior (Bug report only)
 
-Please give some details of what is actually happening.
-Include a [minimum complete verifiable example] with:
+Please give some details of what is actually happening. Include a [minimum
+complete verifiable example] with:
 
 - playbook
 - output of running distronode-lint

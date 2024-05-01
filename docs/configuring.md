@@ -1,14 +1,14 @@
 # Configuration
 
-Customize how Distronode-lint runs against automation content to suit your needs.
-You can ignore certain rules, enable `opt-in` rules, and control various other
-settings.
+Customize how Distronode-lint runs against automation content to suit your
+needs. You can ignore certain rules, enable `opt-in` rules, and control various
+other settings.
 
-Distronode-lint loads configuration from a file in the current working directory or
-from a file that you specify in the command line.
+Distronode-lint loads configuration from a file in the current working directory
+or from a file that you specify in the command line.
 
-Any configuration option that is passed from the command line will override
-the one specified inside the configuration file.
+Any configuration option that is passed from the command line will override the
+one specified inside the configuration file.
 
 ## Using local configuration files
 
@@ -23,8 +23,8 @@ working directory.
 
 ## Specifying configuration files
 
-Use the `-c <filename>` CLI flag with command line invocations of Distronode-lint,
-for example:
+Use the `-c <filename>` CLI flag with command line invocations of
+Distronode-lint, for example:
 
 ```bash
 distronode-lint -c path/to/distronode-lint-dev.yml
@@ -42,9 +42,9 @@ counterparts:
 ## Ignoring rules for entire files
 
 Distronode-lint will load skip rules from an `.distronode-lint-ignore` or
-`.config/distronode-lint-ignore.txt` file that should reside adjacent to the config
-file. The file format is very simple, containing the filename and the rule to be
-ignored. It also supports comments starting with `#`.
+`.config/distronode-lint-ignore.txt` file that should reside adjacent to the
+config file. The file format is very simple, containing the filename and the
+rule to be ignored. It also supports comments starting with `#`.
 
 ```yaml title=".distronode-lint-ignore"
 # this is just a comment
@@ -60,12 +60,12 @@ Keep in mind that this will override any existing file content.
 To use Distronode-lint with the [pre-commit] tool, add the following to the
 `.pre-commit-config.yaml` file in your local repository.
 
-Do not confuse the [pre-commit] tool with the git hook feature that has the same name.
-While the [pre-commit] tool can also make use of git hooks, it does not require
-them and it does not install them by default.
+Do not confuse the [pre-commit] tool with the git hook feature that has the same
+name. While the [pre-commit] tool can also make use of git hooks, it does not
+require them and it does not install them by default.
 
-[pre-commit.ci] is a hosted service that can run pre-commit for you
-on each change but you can also run the tool yourself using the CI of your choice.
+[pre-commit.ci] is a hosted service that can run pre-commit for you on each
+change but you can also run the tool yourself using the CI of your choice.
 
 Change **rev:** to either a commit sha or tag of Distronode-lint that contains
 `.pre-commit-hooks.yaml`.
@@ -82,13 +82,13 @@ ci:
   # skip:
   #   - distronode-lint
 repos:
-- repo: https://github.com/distronode/distronode-lint
-  rev: ... # put latest release tag from https://github.com/distronode/distronode-lint/releases/
-  hooks:
-    - id: distronode-lint
-      # Uncomment if you need the full Distronode community bundle instead of distronode-core:
-      # additional_dependencies:
-      #   - distronode
+  - repo: https://github.com/distronode/distronode-lint
+    rev: ... # put latest release tag from https://github.com/distronode/distronode-lint/releases/
+    hooks:
+      - id: distronode-lint
+        # Uncomment if you need the full Distronode community bundle instead of distronode-core:
+        # additional_dependencies:
+        #   - distronode
 ```
 
 !!! warning

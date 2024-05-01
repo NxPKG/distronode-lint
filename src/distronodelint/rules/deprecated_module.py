@@ -1,4 +1,5 @@
 """Implementation of deprecated-module rule."""
+
 # Copyright (c) 2018, Distronode Project
 
 from __future__ import annotations

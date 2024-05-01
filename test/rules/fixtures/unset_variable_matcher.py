@@ -1,4 +1,5 @@
 """Custom linting rule used as test fixture."""
+
 from distronodelint.rules import DistronodeLintRule
 
 

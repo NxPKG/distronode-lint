@@ -1,4 +1,5 @@
 """Tests for package-latest rule."""
+
 from distronodelint.rules import RulesCollection
 from distronodelint.rules.package_latest import PackageIsNotLatestRule
 from distronodelint.runner import Runner

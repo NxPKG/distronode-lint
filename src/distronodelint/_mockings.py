@@ -1,4 +1,5 @@
 """Utilities for mocking distronode modules and roles."""
+
 from __future__ import annotations
 
 import contextlib

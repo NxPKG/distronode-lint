@@ -1,4 +1,5 @@
 """Tests for syntax-check rule."""
+
 from typing import Any
 
 from distronodelint.file_utils import Lintable

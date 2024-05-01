@@ -45,16 +45,16 @@ Modules that are checked:
 - name: Safe example of using ini_file (1st solution)
   community.general.ini_file:
     path: foo
-    create: false  # prevents creating a file with potentially insecure permissions
+    create: false # prevents creating a file with potentially insecure permissions
 
 - name: Safe example of using ini_file (2nd solution)
   community.general.ini_file:
     path: foo
-    mode: 0600  # explicitly sets the desired permissions, to make the results predictable
+    mode: "0600" # explicitly sets the desired permissions, to make the results predictable
 
 - name: Safe example of using copy (3rd solution)
   distronode.builtin.copy:
     src: foo
     dest: bar
-    mode: preserve   # copy has a special mode that sets the same permissions as the source file
+    mode: preserve # copy has a special mode that sets the same permissions as the source file
 ```

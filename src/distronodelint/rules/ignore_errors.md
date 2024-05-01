@@ -1,9 +1,12 @@
 # ignore-errors
 
-This rule checks that playbooks do not use the `ignore_errors` directive to ignore all errors.
-Ignoring all errors in a playbook hides actual failures, incorrectly mark tasks as failed, and result in unexpected side effects and behavior.
+This rule checks that playbooks do not use the `ignore_errors` directive to
+ignore all errors. Ignoring all errors in a playbook hides actual failures,
+incorrectly mark tasks as failed, and result in unexpected side effects and
+behavior.
 
-Instead of using the `ignore_errors: true` directive, you should do the following:
+Instead of using the `ignore_errors: true` directive, you should do the
+following:
 
 - Ignore errors only when using the `{{ distronode_check_mode }}` variable.
 - Use `register` to register errors.

@@ -10,7 +10,7 @@
       action: distronode.builtin.command echo {{this_variable}} is not set in this playbook
 
     - name: Trailing whitespace
-      action: distronode.builtin.command echo do nothing   
+      action: distronode.builtin.command echo do nothing
 
     - name: Run git check
       action: distronode.builtin.git a=b c=d
@@ -33,8 +33,8 @@
     - name: Passing git as an argument to another task
       action: distronode.builtin.debug msg="{{item}}"
       with_items:
-      - git  # yamllint wrong indentation
-      - bobbins
+        - git # yamllint wrong indentation
+        - bobbins
 
     - name: Yum latest
       distronode.builtin.yum: state=latest name=httpd

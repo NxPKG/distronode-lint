@@ -5,9 +5,7 @@ import { minimatch } from "minimatch";
 import yaml from "js-yaml";
 import { assert } from "chai";
 import stringify from "safe-stable-stringify";
-import { integer } from "vscode-languageserver-types";
-import { exec } from "child_process";
-const spawnSync = require("child_process").spawnSync;
+import { spawnSync } from "child_process";
 
 function ansiRegex({ onlyFirst = false } = {}) {
   const pattern = [
@@ -21,7 +19,7 @@ function ansiRegex({ onlyFirst = false } = {}) {
 function stripAnsi(data: string) {
   if (typeof data !== "string") {
     throw new TypeError(
-      `Expected a \`string\`, got \`${typeof data}\ = ${data}`,
+      `Expected a \`string\`, got \`${typeof data}\ = ${data}`
     );
   }
   return data.replace(ansiRegex(), "");
@@ -48,7 +46,9 @@ describe("schemas under f/", function () {
   schema_files.forEach((schema_file) => {
     if (
       schema_file.startsWith("_") ||
-      ["distronode-navigator-config.json", "rulebook.json"].includes(schema_file)
+      ["distronode-navigator-config.json", "rulebook.json"].includes(
+        schema_file
+      )
     ) {
       return;
     }
@@ -57,7 +57,7 @@ describe("schemas under f/", function () {
     const validator = ajv.compile(schema_json);
     if (schema_json.examples == undefined) {
       console.error(
-        `Schema file ${schema_file} is missing an examples key that we need for documenting file matching patterns.`,
+        `Schema file ${schema_file} is missing an examples key that we need for documenting file matching patterns.`
       );
       return process.exit(1);
     }
@@ -67,7 +67,7 @@ describe("schemas under f/", function () {
           it(`linting ${test_file} using ${schema_file}`, function () {
             var errors_md = "";
             const result = validator(
-              yaml.load(fs.readFileSync(test_file, "utf8")),
+              yaml.load(fs.readFileSync(test_file, "utf8"))
             );
             if (validator.errors) {
               errors_md += "# ajv errors\n\n```json\n";
@@ -76,17 +76,17 @@ describe("schemas under f/", function () {
             }
             // validate using check-jsonschema (python-jsonschema):
             // const py = exec();
-            // Do not use python -m ... calling notation because for some
+            // Do not use python3 -m ... calling notation because for some
             // reason, nodejs environment lacks some env variables needed
             // and breaks usage from inside virtualenvs.
             const proc = spawnSync(
               `${process.env.VIRTUAL_ENV}/bin/check-jsonschema -v -o json --schemafile f/${schema_file} ${test_file}`,
-              { shell: true, encoding: "utf-8", stdio: "pipe" },
+              { shell: true, encoding: "utf-8", stdio: "pipe" }
             );
             if (proc.status != 0) {
               // real errors are sent to stderr due to https://github.com/python-jsonschema/check-jsonschema/issues/88
               errors_md += "# check-jsonschema\n\nstdout:\n\n```json\n";
-              errors_md += stripAnsi(proc.output[1]);
+              errors_md += stripAnsi(proc.output[1] || "");
               errors_md += "```\n";
               if (proc.output[2]) {
                 errors_md += "\nstderr:\n\n```\n";
@@ -110,10 +110,10 @@ describe("schemas under f/", function () {
             assert.equal(
               result,
               !expect_fail,
-              `${JSON.stringify(validator.errors)}`,
+              `${JSON.stringify(validator.errors)}`
             );
           });
-        },
+        }
       );
       // All /$defs/ that have examples property are assumed to be
       // subschemas, "tasks" being the primary such case, which is also used
@@ -130,15 +130,15 @@ describe("schemas under f/", function () {
             ({ file: test_file, expect_fail }) => {
               it(`linting ${test_file} using ${subschema_uri}`, function () {
                 const result = subschema_validator(
-                  yaml.load(fs.readFileSync(test_file, "utf8")),
+                  yaml.load(fs.readFileSync(test_file, "utf8"))
                 );
                 assert.equal(
                   result,
                   !expect_fail,
-                  `${JSON.stringify(validator.errors)}`,
+                  `${JSON.stringify(validator.errors)}`
                 );
               });
-            },
+            }
           );
         }
       }
@@ -148,29 +148,29 @@ describe("schemas under f/", function () {
 
 // find all tests for each schema file
 function getTestFiles(
-  globs: string[],
+  globs: string[]
 ): { file: string; expect_fail: boolean }[] {
   const files = Array.from(
     new Set(
       globs
         .map((glob: any) => minimatch.match(test_files, path.join("**", glob)))
-        .flat(),
-    ),
+        .flat()
+    )
   );
   const negative_files = Array.from(
     new Set(
       globs
         .map((glob: any) =>
-          minimatch.match(negative_test_files, path.join("**", glob)),
+          minimatch.match(negative_test_files, path.join("**", glob))
         )
-        .flat(),
-    ),
+        .flat()
+    )
   );
 
   // All fails ending with fail, like `foo.fail.yml` are expected to fail validation
   let result = files.map((f) => ({ file: f, expect_fail: false }));
   result = result.concat(
-    negative_files.map((f) => ({ file: f, expect_fail: true })),
+    negative_files.map((f) => ({ file: f, expect_fail: true }))
   );
   return result;
 }

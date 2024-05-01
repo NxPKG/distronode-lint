@@ -1,11 +1,11 @@
 # literal-compare
 
-This rule checks for literal comparison with the `when` clause.
-Literal comparison, like `when: var == True`, is unnecessarily complex.
-Use `when: var` to keep your playbooks simple.
+This rule checks for literal comparison with the `when` clause. Literal
+comparison, like `when: var == True`, is unnecessarily complex. Use `when: var`
+to keep your playbooks simple.
 
-Similarly, a check like `when: var != True` or `when: var == False`
-should be replaced with `when: not var`.
+Similarly, a check like `when: var != True` or `when: var == False` should be
+replaced with `when: not var`.
 
 ## Problematic Code
 

@@ -30,7 +30,7 @@ import shutil
 import site
 import sys
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable, TextIO
+from typing import TYPE_CHECKING, Any, TextIO
 
 from distronode_compat.prerun import get_cache_dir
 from filelock import FileLock, Timeout
@@ -72,12 +72,13 @@ from distronodelint.version import __version__
 if TYPE_CHECKING:
     # RulesCollection must be imported lazily or distronode gets imported too early.
 
+    from collections.abc import Callable
+
     from distronodelint.rules import RulesCollection
     from distronodelint.runner import LintResult
 
 
 _logger = logging.getLogger(__name__)
-cache_dir_lock: None | FileLock = None
 
 
 class LintLogHandler(logging.Handler):
@@ -118,8 +119,9 @@ def initialize_logger(level: int = 0) -> None:
     _logger.debug("Logging initialized to level %s", logging_level)
 
 
-def initialize_options(arguments: list[str] | None = None) -> None:
+def initialize_options(arguments: list[str] | None = None) -> None | FileLock:
     """Load config options and store them inside options module."""
+    cache_dir_lock = None
     new_options = cli.get_config(arguments or [])
     new_options.cwd = pathlib.Path.cwd()
 
@@ -143,7 +145,7 @@ def initialize_options(arguments: list[str] | None = None) -> None:
         options.cache_dir.mkdir(parents=True, exist_ok=True)
 
     if not options.offline:  # pragma: no cover
-        cache_dir_lock = FileLock(  # pylint: disable=redefined-outer-name
+        cache_dir_lock = FileLock(
             f"{options.cache_dir}/.lock",
         )
         try:
@@ -157,6 +159,8 @@ def initialize_options(arguments: list[str] | None = None) -> None:
     # Avoid extra output noise from Distronode about using devel versions
     if "DISTRONODE_DEVEL_WARNING" not in os.environ:  # pragma: no branch
         os.environ["DISTRONODE_DEVEL_WARNING"] = "false"
+
+    return cache_dir_lock
 
 
 def _do_list(rules: RulesCollection) -> int:
@@ -205,12 +209,6 @@ def _do_transform(result: LintResult, opts: Options) -> None:
 
 def support_banner() -> None:
     """Display support banner when running on unsupported platform."""
-    if sys.version_info < (3, 9, 0):  # pragma: no cover # noqa: UP036
-        prefix = "::warning::" if "GITHUB_ACTION" in os.environ else "WARNING: "
-        console_stderr.print(
-            f"{prefix}distronode-lint is no longer tested under Python {sys.version_info.major}.{sys.version_info.minor} and will soon require 3.9. Do not report bugs for this version.",
-            style="bold red",
-        )
 
 
 def fix(runtime_options: Options, result: LintResult, rules: RulesCollection) -> None:
@@ -289,7 +287,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if argv is None:  # pragma: no cover
         argv = sys.argv
-    initialize_options(argv[1:])
+    cache_dir_lock = initialize_options(argv[1:])
 
     console_options["force_terminal"] = options.colored
     reconfigure(console_options)
@@ -452,13 +450,11 @@ def path_inject(own_location: str = "") -> None:
         inject_paths.append(str(py_path))
 
     # last option, if nothing else is found, just look next to ourselves...
-    own_location = os.path.realpath(own_location)
-    if (
-        own_location
-        and (Path(own_location).parent / "distronode").exists()
-        and str(Path(own_location).parent) not in paths
-    ):
-        inject_paths.append(str(Path(own_location).parent))
+    if own_location:
+        own_location = os.path.realpath(own_location)
+        parent = Path(own_location).parent
+        if (parent / "distronode").exists() and str(parent) not in paths:
+            inject_paths.append(str(parent))
 
     if not os.environ.get("PYENV_VIRTUAL_ENV", None):
         if inject_paths and not all("pipx" in p for p in inject_paths):

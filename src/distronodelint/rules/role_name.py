@@ -1,4 +1,5 @@
 """Implementation of role-name rule."""
+
 # Copyright (c) 2020 Gael Chamoulaud <gchamoul@redhat.com>
 # Copyright (c) 2020 Sorin Sbarnea <ssbarnea@redhat.com>
 #
@@ -95,14 +96,20 @@ class RoleNames(DistronodeLintRule):
             return result
 
         if file.kind == "meta":
-            for role in file.data["dependencies"]:
-                role_name = role["role"]
+            for role in file.data.get("dependencies", []):
+                if isinstance(role, dict):
+                    role_name = role["role"]
+                elif isinstance(role, str):
+                    role_name = role
+                else:
+                    msg = "Role dependency has unexpected type."
+                    raise RuntimeError(msg)
                 if "/" in role_name:
                     result.append(
                         self.create_matcherror(
                             f"Avoid using paths when importing roles. ({role_name})",
                             filename=file,
-                            lineno=role["__line__"],
+                            lineno=role_name.distronode_pos[1],
                             tag=f"{self.id}[path]",
                         ),
                     )
@@ -186,7 +193,7 @@ if "pytest" in sys.modules:
 
     @pytest.mark.parametrize(
         ("test_file", "failure"),
-        (pytest.param("examples/roles/role_with_deps_paths", 2, id="fail"),),
+        (pytest.param("examples/roles/role_with_deps_paths", 3, id="fail"),),
     )
     def test_role_deps_path_names(
         default_rules_collection: RulesCollection,
@@ -201,8 +208,26 @@ if "pytest" in sys.modules:
         expected_errors = (
             ("role-name[path]", 3),
             ("role-name[path]", 9),
+            ("role-name[path]", 10),
         )
+        assert len(expected_errors) == failure
         for idx, result in enumerate(results):
             assert result.tag == expected_errors[idx][0]
             assert result.lineno == expected_errors[idx][1]
+        assert len(results) == failure
+
+    @pytest.mark.parametrize(
+        ("test_file", "failure"),
+        (pytest.param("examples/roles/test-no-deps-role", 0, id="no_deps"),),
+    )
+    def test_role_no_deps(
+        default_rules_collection: RulesCollection,
+        test_file: str,
+        failure: int,
+    ) -> None:
+        """Test role if no dependencies are present in meta/main.yml."""
+        results = Runner(
+            test_file,
+            rules=default_rules_collection,
+        ).run()
         assert len(results) == failure

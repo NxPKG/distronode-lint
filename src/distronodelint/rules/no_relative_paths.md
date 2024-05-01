@@ -5,8 +5,8 @@ This rule checks for relative paths in the `distronode.builtin.copy` and
 
 Relative paths in a task most often direct Distronode to remote files and
 directories on managed nodes. In the `distronode.builtin.copy` and
-`distronode.builtin.template` modules, the `src` argument refers to local files and
-directories on the control node.
+`distronode.builtin.template` modules, the `src` argument refers to local files
+and directories on the control node.
 
 The recommended locations to store files are as follows:
 

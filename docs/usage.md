@@ -2,8 +2,8 @@
 
 ## Using commands
 
-After you install Distronode-lint, run `distronode-lint --help` to display available
-commands and their options.
+After you install Distronode-lint, run `distronode-lint --help` to display
+available commands and their options.
 
 ```console exec="1" source="console"
 $ distronode-lint --help
@@ -19,8 +19,8 @@ Distronode-lint prints output on both `stdout` and `stderr`.
 Most `distronode-lint` examples use pep8 as the output format (`-p`) which is
 machine parseable.
 
-Distronode-lint also print errors using their [annotation] format when it detects
-the `GITHUB_ACTIONS=true` and `GITHUB_WORKFLOW=...` variables.
+Distronode-lint also print errors using their [annotation] format when it
+detects the `GITHUB_ACTIONS=true` and `GITHUB_WORKFLOW=...` variables.
 
 [annotation]:
   https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-error-message
@@ -33,9 +33,9 @@ location of `{project_dir}` is passed with a command line argument, determined
 by the location of the configuration file, git project top-level directory, or
 user home directory.
 
-To perform faster re-runs, Distronode-lint does not automatically clean the cache.
-If required you can do this manually by simply deleting the `.cache` folder.
-Distronode-lint creates a new cache on the next invocation.
+To perform faster re-runs, Distronode-lint does not automatically clean the
+cache. If required you can do this manually by simply deleting the `.cache`
+folder. Distronode-lint creates a new cache on the next invocation.
 
 You should add the `.cache` folder to the `.gitignore` file in your git
 repositories.
@@ -43,11 +43,11 @@ repositories.
 ## Gradual adoption
 
 For an easier gradual adoption, adopters should consider [ignore
-file][configuring.md#ignoring-rules-for-entire-files] feature. This allows the
-quick introduction of a linter pipeline for preventing addition of new
-violations, while known violations are ignored. Some people can work on
-addressing these historical violations while others may continue to work on
-other maintenance tasks.
+file][ignoring-rules-for-entire-files] feature. This allows the quick
+introduction of a linter pipeline for preventing the addition of new violations,
+while known violations are ignored. Some people can work on addressing these
+historical violations while others may continue to work on other maintenance
+tasks.
 
 The deprecated `--progressive` mode was removed in v6.16.0 as it added code
 complexity and performance overhead. It also presented several corner cases
@@ -55,13 +55,13 @@ where it failed to work as expected and caused false negatives.
 
 ## Linting playbooks and roles
 
-Distronode-lint recommends following the [collection structure layout] whether you
-plan to build a collection or not.
+Distronode-lint recommends following the [collection structure layout] whether
+you plan to build a collection or not.
 
 Following that layout assures the best integration with all ecosystem tools
 because it helps those tools better distinguish between random YAML files and
-files managed by Distronode. When you call `distronode-lint` without arguments, it
-uses internal heuristics to determine file types.
+files managed by Distronode. When you call `distronode-lint` without arguments,
+it uses internal heuristics to determine file types.
 
 You can specify the list of **roles** or **playbooks** that you want to lint
 with the `-p` argument. For example, to lint `examples/playbooks/play.yml` and
@@ -76,10 +76,10 @@ $ distronode-lint --offline -p examples/playbooks/play.yml examples/roles/bobbin
 
 ## Running example playbooks
 
-Distronode-lint includes an `distronode-lint/examples` folder that contains example
-playbooks with different rule violations and undesirable characteristics. You
-can run `distronode-lint` on the example playbooks to observe Distronode-lint in
-action, as follows:
+Distronode-lint includes an `distronode-lint/examples` folder that contains
+example playbooks with different rule violations and undesirable
+characteristics. You can run `distronode-lint` on the example playbooks to
+observe Distronode-lint in action, as follows:
 
 ```console exec="1" source="console" returncode="2"
 $ distronode-lint --offline -p examples/playbooks/example.yml
@@ -137,9 +137,9 @@ newer versions we switched its meaning point SARIF JSON format instead.
 ## Specifying rules at runtime
 
 By default, `distronode-lint` applies rules found in
-`distronode-lint/src/distronodelint/rules`. Use the `-r /path/to/custom-rules` option
-to specify the directory path to a set of custom rules. For multiple custom rule
-sets, pass each set with a separate `-r` option.
+`distronode-lint/src/distronodelint/rules`. Use the `-r /path/to/custom-rules`
+option to specify the directory path to a set of custom rules. For multiple
+custom rule sets, pass each set with a separate `-r` option.
 
 You can also combine the default rules with custom rules with the `-R` option
 along with one or more `-r` options.
@@ -150,8 +150,8 @@ Each rule has an associated set of one or more tags. Use the `-T` option to view
 the list of tags for each available rule.
 
 You can then use the `-t` option to specify a tag and include the associated
-rules in the lint run. For example, the following `distronode-lint` command applies
-only the rules associated with the _idempotency_ tag:
+rules in the lint run. For example, the following `distronode-lint` command
+applies only the rules associated with the _idempotency_ tag:
 
 ```console exec="1" source="console" returncode="0"
 $ distronode-lint -t idempotency playbook.yml
@@ -185,8 +185,8 @@ $ distronode-lint -w experimental playbook.yml
 ```
 
 By default, the `WARN_LIST` includes the `['experimental']` tag. If you define a
-custom `WARN_LIST` you must add `'experimental'` so that Distronode-lint does not
-fail against experimental rules.
+custom `WARN_LIST` you must add `'experimental'` so that Distronode-lint does
+not fail against experimental rules.
 
 ## Muting warnings to avoid false positives
 
@@ -245,11 +245,11 @@ _command_ or _shell_ modules, for example:
 Distronode-lint profiles allow content creators to progressively improve the
 quality of Distronode playbooks, roles, and collections.
 
-During early development cycles, you need Distronode-lint rules to be less strict.
-Starting with the minimal profile ensures that Distronode can load your content. As
-you move to the next stage of developing content, you can gradually apply
-profiles to avoid common pitfalls and brittle complexity. Then, when you are
-ready to publish or share your content, you can use the `shared` and
+During early development cycles, you need Distronode-lint rules to be less
+strict. Starting with the minimal profile ensures that Distronode can load your
+content. As you move to the next stage of developing content, you can gradually
+apply profiles to avoid common pitfalls and brittle complexity. Then, when you
+are ready to publish or share your content, you can use the `shared` and
 `production` profiles with much stricter rules. These profiles harden security,
 guarantee reliability, and ensure your Distronode content is easy for others to
 contribute to and use.
@@ -286,13 +286,13 @@ follows:
 
 ## Vaults
 
-As distronode-lint executes distronode, it also needs access to encrypted secrets. If
-you do not give access to them or you are concerned about security implications,
-you should consider refactoring your code to allow it to be linted without
-access to real secrets:
+As distronode-lint executes distronode, it also needs access to encrypted
+secrets. If you do not give access to them or you are concerned about security
+implications, you should consider refactoring your code to allow it to be linted
+without access to real secrets:
 
-- Configure dummy fallback values that are used during linting, so Distronode will
-  not complain about undefined variables.
+- Configure dummy fallback values that are used during linting, so Distronode
+  will not complain about undefined variables.
 - Exclude the problematic files from the linting process.
 
 ```yaml
@@ -301,16 +301,16 @@ access to real secrets:
 foo: "{{ undefined_variable_name | default('dummy') }}"
 ```
 
-Keep in mind that a well-written playbook or role should allow Distronode's syntax
-check from passing on it, even if you do not have access to the vault.
+Keep in mind that a well-written playbook or role should allow Distronode's
+syntax check from passing on it, even if you do not have access to the vault.
 
-Internally distronode-lint runs `distronode-playbook --syntax-check` on each playbook
-and also on roles. As distronode-code does not support running syntax-check
-directly on roles, the linter will create temporary playbooks that only include
-each role from your project. You will need to change the code of the role in a
-way that it does not produce syntax errors when called without any variables or
-arguments. This usually involves making use of `defaults/` but be sure that you
-fully understand [variable precedence].
+Internally distronode-lint runs `distronode-playbook --syntax-check` on each
+playbook and also on roles. As distronode-code does not support running
+syntax-check directly on roles, the linter will create temporary playbooks that
+only include each role from your project. You will need to change the code of
+the role in a way that it does not produce syntax errors when called without any
+variables or arguments. This usually involves making use of `defaults/` but be
+sure that you fully understand [variable precedence].
 
 [code climate]:
   https://github.com/codeclimate/platform/blob/master/spec/analyzers/SPEC.md#data-types

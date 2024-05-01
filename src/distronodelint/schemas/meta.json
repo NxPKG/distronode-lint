@@ -110,6 +110,25 @@
       "title": "ArchLinuxPlatformModel",
       "type": "object"
     },
+    "AstraLinuxPlatformModel": {
+      "properties": {
+        "name": {
+          "const": "Astra Linux",
+          "title": "Name",
+          "type": "string"
+        },
+        "versions": {
+          "default": "all",
+          "items": {
+            "enum": ["1.8", "1.7", "1.6", "2.12", "all"],
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "title": "AstraLinuxPlatformModel",
+      "type": "object"
+    },
     "ClearLinuxPlatformModel": {
       "properties": {
         "name": {
@@ -357,6 +376,7 @@
               "37",
               "38",
               "39",
+              "40",
               "all"
             ],
             "type": "string"
@@ -512,7 +532,7 @@
         "namespace": {
           "markdownDescription": "Used by molecule and distronode-lint to compute FQRN for roles outside collections",
           "minLength": 2,
-          "pattern": "^[a-z][a-z0-9_]+$",
+          "pattern": "^[a-z][a-z0-9_-]+$",
           "title": "Namespace Name",
           "type": "string"
         },
@@ -847,7 +867,15 @@
         "versions": {
           "default": "all",
           "items": {
-            "enum": ["17.01", "18.06", "19.07", "21.02", "22.03", "all"],
+            "enum": [
+              "17.01",
+              "18.06",
+              "19.07",
+              "21.02",
+              "22.03",
+              "23.05",
+              "all"
+            ],
             "type": "string"
           },
           "type": "array"
@@ -1092,6 +1120,7 @@
               "lucid",
               "lunar",
               "mantic",
+              "noble",
               "maverick",
               "natty",
               "oneiric",
@@ -1510,7 +1539,14 @@
     },
     "dependencies": {
       "items": {
-        "$ref": "#/$defs/DependencyModel"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/DependencyModel"
+          }
+        ]
       },
       "title": "Dependencies",
       "type": "array"

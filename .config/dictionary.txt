@@ -1,5 +1,6 @@
 Adrián
 Autobuild
+audgirka
 CLICOLOR
 CODENOTIFY
 CODEOWNERS
@@ -9,6 +10,7 @@ Chamoulaud
 DISTRO
 DOTGLOB
 ENVVAR
+EPEL
 EPIPE # linux
 Fimport
 Jython
@@ -50,6 +52,7 @@ autodetected
 autodiscovery
 autodoc
 autofix
+autohide
 autorefs
 autoupdate
 awcrosby

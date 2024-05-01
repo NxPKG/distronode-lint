@@ -1,10 +1,11 @@
 # no-prompting
 
-This rule checks for `vars_prompt` or the `distronode.builtin.pause` module in playbooks.
-You should enable this rule to ensure that playbooks can run unattended and in CI/CD pipelines.
+This rule checks for `vars_prompt` or the `distronode.builtin.pause` module in
+playbooks. You should enable this rule to ensure that playbooks can run
+unattended and in CI/CD pipelines.
 
-This is an opt-in rule.
-You must enable it in your Distronode-lint configuration as follows:
+This is an opt-in rule. You must enable it in your Distronode-lint configuration
+as follows:
 
 ```yaml
 enable_list:
@@ -32,4 +33,5 @@ enable_list:
 
 ## Correct Code
 
-Correct code for this rule is to omit `vars_prompt` and the `distronode.builtin.pause` module from your playbook.
+Correct code for this rule is to omit `vars_prompt` and the
+`distronode.builtin.pause` module from your playbook.

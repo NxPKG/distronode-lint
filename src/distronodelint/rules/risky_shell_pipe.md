@@ -1,6 +1,7 @@
 # risky-shell-pipe
 
-This rule checks for the bash `pipefail` option with the Distronode `shell` module.
+This rule checks for the bash `pipefail` option with the Distronode `shell`
+module.
 
 You should always set `pipefail` when piping output from one command to another.
 The return status of a pipeline is the exit status of the command. The

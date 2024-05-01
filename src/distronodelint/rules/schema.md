@@ -1,7 +1,8 @@
 # schema
 
-The `schema` rule validates Distronode metadata files against JSON schemas. These
-schemas ensure the compatibility of Distronode syntax content across versions.
+The `schema` rule validates Distronode metadata files against JSON schemas.
+These schemas ensure the compatibility of Distronode syntax content across
+versions.
 
 This `schema` rule is **mandatory**. You cannot use inline `noqa` comments to
 ignore it.
@@ -11,14 +12,14 @@ prevents unexpected syntax from triggering multiple rule violations.
 
 ## Validated schema
 
-Distronode-lint currently validates several schemas that are maintained in separate
-projects and updated independently to distronode-lint.
+Distronode-lint currently validates several schemas that are maintained in
+separate projects and updated independently to distronode-lint.
 
 > Report bugs related to schema in their respective repository and not in the
 > distronode-lint project.
 
-Maintained in the [distronode-lint](https://github.com/distronode/distronode-lint)
-project:
+Maintained in the
+[distronode-lint](https://github.com/distronode/distronode-lint) project:
 
 - `schema[distronode-lint-config]` validates
   [distronode-lint configuration](https://github.com/distronode/distronode-lint/blob/main/src/distronodelint/schemas/distronode-lint-config.json)
@@ -50,7 +51,8 @@ project:
   that match `vars/*.yml` and `defaults/*.yml`.
 
 Maintained in the
-[distronode-navigator](https://github.com/distronode/distronode-navigator) project:
+[distronode-navigator](https://github.com/distronode/distronode-navigator)
+project:
 
 - `schema[distronode-navigator]` validates
   [distronode-navigator configuration](https://github.com/distronode/distronode-navigator/blob/main/src/distronode_navigator/data/distronode-navigator.json)
@@ -66,8 +68,8 @@ galaxy_info:
   standalone: true # <-- this is a standalone role (not part of a collection)
 ```
 
-Distronode-lint requires the `standalone` key to avoid confusion and provide more
-specific error messages. For example, the `meta` schema will require some
+Distronode-lint requires the `standalone` key to avoid confusion and provide
+more specific error messages. For example, the `meta` schema will require some
 properties only for standalone roles or prevent the use of some properties that
 are not supported by collections.
 

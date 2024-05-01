@@ -4,9 +4,9 @@ Do not manually edit, generated from generate_docs.py
 
 # Profiles
 
-Distronode-lint profiles gradually increase the strictness of rules as your Distronode
-content lifecycle. To configure linter to use a specific profile, read
-[applying-profiles][].
+Distronode-lint profiles gradually increase the strictness of rules as your
+Distronode content lifecycle. To configure linter to use a specific profile,
+read [applying-profiles][].
 
 !!! note
 
@@ -14,9 +14,9 @@ content lifecycle. To configure linter to use a specific profile, read
 
 ## min
 
-The `min` profile ensures that Distronode can load content. Rules in this profile
-are mandatory because they prevent fatal errors. You can add files to the
-exclude list or provide dependencies to load the correct files.
+The `min` profile ensures that Distronode can load content. Rules in this
+profile are mandatory because they prevent fatal errors. You can add files to
+the exclude list or provide dependencies to load the correct files.
 
 - [internal-error](rules/internal-error.md)
 - [load-failure](rules/load-failure.md)

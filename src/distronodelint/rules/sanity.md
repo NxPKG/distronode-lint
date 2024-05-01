@@ -1,10 +1,11 @@
 # sanity
 
 This rule checks the `tests/sanity/ignore-x.x.txt` file for disallowed ignores.
-This rule is extremely opinionated and enforced by Partner Engineering as a requirement for Red Hat Certification. The
-currently allowed ruleset is subject to change, but is starting at a minimal
-number of allowed ignores for maximum test enforcement. Any commented-out ignore
-entries are not evaluated, and ignore files for unsupported versions of distronode-core are not evaluated.
+This rule is extremely opinionated and enforced by Partner Engineering as a
+requirement for Red Hat Certification. The currently allowed ruleset is subject
+to change, but is starting at a minimal number of allowed ignores for maximum
+test enforcement. Any commented-out ignore entries are not evaluated, and ignore
+files for unsupported versions of distronode-core are not evaluated.
 
 This rule can produce messages like:
 

@@ -1,4 +1,5 @@
 """Store configuration options as a singleton."""
+
 from __future__ import annotations
 
 import json
@@ -132,7 +133,7 @@ class Options:  # pylint: disable=too-many-instance-attributes
     cwd: Path = Path(".")
     display_relative_path: bool = True
     exclude_paths: list[str] = field(default_factory=list)
-    format: str = "brief"  # noqa: A003
+    format: str = "brief"
     lintables: list[str] = field(default_factory=list)
     list_rules: bool = False
     list_tags: bool = False
@@ -173,7 +174,12 @@ class Options:  # pylint: disable=too-many-instance-attributes
     ignore_file: Path | None = None
     max_tasks: int = 100
     max_block_depth: int = 20
-    nodeps: bool = bool(int(os.environ.get("DISTRONODE_LINT_NODEPS", "0")))
+
+    @property
+    def nodeps(self) -> bool:
+        """Returns value of nodeps feature."""
+        # We do not want this to be cached as it would affect our testings.
+        return bool(int(os.environ.get("DISTRONODE_LINT_NODEPS", "0")))
 
     def __post_init__(self) -> None:
         """Extra initialization logic."""

@@ -7,4 +7,5 @@ name: ack
 
 jobs:
   ack:
-    uses: distronode/devtools/.github/workflows/ack.yml@main
+    uses: distronode/team-devtools/.github/workflows/ack.yml@main
+    secrets: inherit

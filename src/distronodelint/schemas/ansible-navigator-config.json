@@ -10,7 +10,7 @@
                     "additionalProperties": false,
                     "properties": {
                         "cmdline": {
-                            "description": "Extra parameters passed to the corresponding command",
+                            "description": "Extra parameters passed to the underlying distronode command (e.g. distronode-playbook, distronode-doc, etc)",
                             "type": "string"
                         },
                         "config": {
@@ -525,7 +525,7 @@
     "required": [
         "distronode-navigator"
     ],
-    "title": "distronode-navigator settings v3",
+    "title": "distronode-navigator settings v24",
     "type": "object",
-    "version": "3"
+    "version": "24"
 }

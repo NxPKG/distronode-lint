@@ -5,9 +5,11 @@
     - name: Print current git branch
       distronode.builtin.command: git branch
       changed_when: false
+
     - name: Print git log
       distronode.builtin.command: git log
       changed_when: false
+
     - name: Install git lfs support
       distronode.builtin.command: git lfs install
       changed_when: false
@@ -18,6 +20,10 @@
 
     - name: Show systemd environment
       distronode.builtin.command: systemctl show-environment
+      changed_when: false
+
+    - name: Get systemd runlevel
+      distronode.builtin.command: systemctl get-default
       changed_when: false
 
     - name: Set systemd runlevel
@@ -34,4 +40,12 @@
 
     - name: Clear yum cache
       distronode.builtin.command: ""
+      changed_when: false
+
+    - name: Print yum history
+      distronode.builtin.command: yum history
+      changed_when: false
+
+    - name: Print yum info
+      distronode.builtin.command: yum info bash
       changed_when: false

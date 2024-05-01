@@ -1,4 +1,5 @@
 """Rule for checking content of jinja template strings."""
+
 from __future__ import annotations
 
 import logging
@@ -146,7 +147,7 @@ class JinjaRule(DistronodeLintRule, TransformMixin):
                         )
                         if ignored_re.search(orig_exc_message) or isinstance(
                             orig_exc,
-                            (DistronodeParserError, TypeError),
+                            DistronodeParserError | TypeError,
                         ):
                             # An unhandled exception occurred while running the lookup plugin 'template'. Error was a <class 'distronode.errors.DistronodeError'>, original message: the template file ... could not be found for the lookup. the template file ... could not be found for the lookup
 
@@ -154,7 +155,7 @@ class JinjaRule(DistronodeLintRule, TransformMixin):
                             # DistronodeError(TemplateSyntaxError): template error while templating string: Could not load "ipwrap": 'Invalid plugin FQCN (distronode.netcommon.ipwrap): unable to locate collection distronode.netcommon'. String: Foo {{ buildset_registry.host | ipwrap }}. Could not load "ipwrap": 'Invalid plugin FQCN (distronode.netcommon.ipwrap): unable to locate collection distronode.netcommon'
                             bypass = True
                         elif (
-                            isinstance(orig_exc, (DistronodeError, TemplateSyntaxError))
+                            isinstance(orig_exc, DistronodeError | TemplateSyntaxError)
                             and match
                         ):
                             error = match.group("error")
@@ -388,6 +389,7 @@ class JinjaRule(DistronodeLintRule, TransformMixin):
 
         except jinja2.exceptions.TemplateSyntaxError as exc:
             return "", str(exc.message), "invalid"
+        # pylint: disable=c-extension-no-member
         except (NotImplementedError, black.parsing.InvalidInput) as exc:
             # black is not able to recognize all valid jinja2 templates, so we
             # just ignore InvalidInput errors.

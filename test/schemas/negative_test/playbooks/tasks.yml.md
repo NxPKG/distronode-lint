@@ -79,10 +79,7 @@
     "keyword": "type",
     "message": "must be array,null",
     "params": {
-      "type": [
-        "array",
-        "null"
-      ]
+      "type": ["array", "null"]
     },
     "schemaPath": "#/type"
   },
@@ -91,10 +88,7 @@
     "keyword": "type",
     "message": "must be array,null",
     "params": {
-      "type": [
-        "array",
-        "null"
-      ]
+      "type": ["array", "null"]
     },
     "schemaPath": "#/type"
   },
@@ -103,10 +97,7 @@
     "keyword": "type",
     "message": "must be array,null",
     "params": {
-      "type": [
-        "array",
-        "null"
-      ]
+      "type": ["array", "null"]
     },
     "schemaPath": "#/type"
   },
@@ -115,10 +106,7 @@
     "keyword": "type",
     "message": "must be array,null",
     "params": {
-      "type": [
-        "array",
-        "null"
-      ]
+      "type": ["array", "null"]
     },
     "schemaPath": "#/type"
   },

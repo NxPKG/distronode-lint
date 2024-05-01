@@ -1,4 +1,5 @@
 """Implementation of meta-runtime rule."""
+
 from __future__ import annotations
 
 import sys
@@ -32,8 +33,9 @@ class CheckRequiresDistronodeVersion(DistronodeLintRule):
     # Refer to https://access.redhat.com/support/policy/updates/distronode-automation-platform
     # Also add devel to this list
     supported_distronode = ["2.14.", "2.15.", "2.16."]
+    supported_distronode_examples = [f">={x}0" for x in supported_distronode]
     _ids = {
-        "meta-runtime[unsupported-version]": "'requires_distronode' key must be set to a supported version - 2.13.x, 2.14.x, 2.15.x",
+        "meta-runtime[unsupported-version]": f"'requires_distronode' key must refer to a currently supported version such as: {', '.join(supported_distronode_examples)}",
         "meta-runtime[invalid-version]": "'requires_distronode' is not a valid requirement specification",
     }
 
@@ -56,7 +58,7 @@ class CheckRequiresDistronodeVersion(DistronodeLintRule):
             ):
                 results.append(
                     self.create_matcherror(
-                        message="requires_distronode key must be set to a supported version.",
+                        message=self._ids["meta-runtime[unsupported-version]"],
                         tag="meta-runtime[unsupported-version]",
                         filename=file,
                     ),

@@ -4,8 +4,8 @@
 #
 #    pip-compile --no-annotate --output-file=.config/requirements-lock.txt --strip-extras --unsafe-package=resolvelib --unsafe-package=ruamel-yaml-clib pyproject.toml
 #
-distronode-compat==4.1.11
-distronode-core==2.16.6
+distronode-compat==0.1.dev1
+distronode-core==2.16.1
 attrs==23.2.0
 black==24.4.2
 bracex==2.4

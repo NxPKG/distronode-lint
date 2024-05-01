@@ -1,8 +1,8 @@
 # This file is kept in a different directory than .config in order to not be
 # automatically updated by dependabot. This should be kept in sync with
 # minimal requirements configured inside .config/requirements.in
-distronode-core==2.13.0
-distronode-compat==4.1.11 # GPLv3
+distronode-core==2.16.1
+distronode-compat==0.1.dev1 # GPLv3
 black==24.3.0 # MIT (security)
 filelock==3.3.0 # The Unlicense
 jsonschema==4.10.0 # MIT, version needed for improved errors

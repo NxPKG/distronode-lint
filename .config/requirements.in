@@ -1,7 +1,7 @@
 # Special order section for helping pip:
 will-not-work-on-windows-try-from-wsl-instead; platform_system=='Windows'
-distronode-core>=2.13.0 # GPLv3
-distronode-compat>=4.1.11 # GPLv3
+distronode-core>=2.16.1 # GPLv3
+distronode-compat>=0.1.dev1 # GPLv3
 # alphabetically sorted:
 black>=24.3.0 # MIT (security)
 filelock>=3.3.0 # The Unlicense

@@ -4,8 +4,8 @@
 #
 #    pip-compile --all-extras --no-annotate --output-file=.config/constraints.txt --strip-extras --unsafe-package=resolvelib --unsafe-package=ruamel-yaml-clib --unsafe-package=wcmatch pyproject.toml
 #
-distronode-compat==4.1.11
-distronode-core==2.16.6
+distronode-compat==0.1.dev1
+distronode-core==2.16.1
 astroid==3.1.0
 attrs==23.2.0
 babel==2.14.0
